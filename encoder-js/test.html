@@ -1,17 +1,28 @@
+<script src="b64.js"></script>
 <script src="byte-array.js"></script>
 <script src="LZWEncoder.js"></script>
 <script src="NeuQuant.js"></script>
 <script src="GIFEncoder.js"></script>
 <canvas id="bitmap"></canvas>
+<img id="image">
 <script>
 var canvas = document.getElementById('bitmap');
 var context = canvas.getContext('2d');
+context.fillStyle = "rgb(255,255,255)";  
+context.fillRect(0,0,canvas.width, canvas.height); //GIF can't do transparent so do white
+
 context.fillStyle = "rgb(200,0,0)";  
 context.fillRect (10, 10, 55, 50);  
 
+console.log('yay');
 var encoder = new GIFEncoder();
 encoder.setRepeat(0); //auto-loop
 encoder.setDelay(500);
-encoder.start();
-encoder.addFrame(context);
+console.log(encoder.start());
+console.log(encoder.addFrame(context));
+context.fillStyle = "rgb(20,0,200)";  
+context.fillRect (30, 30, 55, 50);  
+console.log(encoder.addFrame(context));
+encoder.finish();
+document.getElementById('image').src = 'data:image/gif;base64,'+encode64(encoder.stream().getData())
 </script>

@@ -85,8 +85,9 @@ ByteArray.prototype = {
   //writes a string
   writeBytes: function(v){
     for(var l = v.length, i = 0; i < l; i++){
-      this.writeByte(v.charCodeAt(i));
+      this.writeByte(v[i]);
     }
+    console.log(this.bin.length);
   },
 
 
