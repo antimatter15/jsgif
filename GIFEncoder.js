@@ -148,8 +148,8 @@
 			
 		    try {
 				if(!is_imageData){
-				  image = im.getImageData(0,0, im.canvas.width, im.canvas.height);
-				  if (!sizeSet) setSize(image.width, image.height);
+				  image = im.getImageData(0,0, im.canvas.width, im.canvas.height).data;
+				  if (!sizeSet) setSize(im.canvas.width, im.canvas.height);
 				}else{
 				  image = im;
 				}
@@ -366,10 +366,10 @@
 		var getImagePixels = function getImagePixels()/*void*/
 		{
 		    
-		    var w/*int*/ = image.width;
-		    var h/*int*/ = image.height;
+		    var w/*int*/ = width;
+		    var h/*int*/ = height;
 		    pixels = [];
-			var data = image.data;
+  			var data = image;
 		    var count/*int*/ = 0;
 		    
 		    for ( var i/*int*/ = 0; i < h; i++ )
