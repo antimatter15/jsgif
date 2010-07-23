@@ -32,39 +32,4 @@
   document.getElementById('image').src = 'data:image/gif;base64,'+encode64(encoder.stream().getData())
 
 
-for(var a = [], i = 0; i < 100000; i ++){
-  a.push(Math.floor(Math.random()*120)+1)
-}
-
-
-for(var i = 0, chr = {}; i < 256; i++)
-  chr[i] = String.fromCharCode(i);
-
-var s = +new Date;
-a.map(function(a){
-	        return String.fromCharCode(a);
-	      }).join('')
-console.log(new Date - s);
-var s = +new Date;
-
-
-for(var v = '', l = a.length, i = 0; i < l; i++){
-  v+= String.fromCharCode(a[i]);
-}
-console.log(new Date - s);
-var s = +new Date;
-
-
-for(var v = '', l = a.length, i = 0; i < l; i++){
-  v+= chr[a[i]];
-}
-console.log(new Date - s);
-var s = +new Date;
-
-
-for(var v = '', l = a.length, i = 0; i < l; i++){
-  a[i] = chr[a[i]];
-}
-a.join('');
-console.log(new Date - s);
 </script>
