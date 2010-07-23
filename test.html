@@ -30,5 +30,46 @@
   encoder.finish();
   document.getElementById('image').src = 'data:image/gif;base64,'+encode64(encoder.stream().getData())
 
+/*
+To add WebWorkers for animation rendering:
 
+
+var frame_index,
+    frame_length,
+    height, 
+    width,
+    imageData; //get it from onmessage
+    
+var encoder = new GIFEncoder(); //create a new GIFEncoder for every new job
+if(frame_index == 0){
+  encoder.start();
+}else{
+  encoder.setProperties(true, true); //started, firstFrame
+}
+encoder.setSize(height, width);
+encoder.addFrame(imageData, true);
+if(frame_length == frame_index){
+  encoder.finish()
+}
+postMessage(frame_index + encoder.stream().getData()) //on the page, search for the GIF89a to see the frame_index
+
+
+var animation_parts = new Array(frame_length);
+//on the handler side:
+
+var worker = new WebWorker('blahblahblah.js');
+worker.onmessage = function(e){
+  //handle stuff, like get the frame_index
+  animation_parts[frame_index] = frame_data;
+  //check when everything else is done and then do animation_parts.join('') and have fun
+}
+var imdata = context.getImageData(0,0,canvas.width,canvas.height)
+var len = canvas.width * canvas.height * 4;
+var imarray = [];
+for(var i = 0; i < len; i++){
+  imarray.push(imdata[i]);
+}
+
+worker.postMessage(frame_index + ';' + frame_length + ';' + canvas.height + ';' + canvas.width + ';' + imarray.join(','))
+*/
 </script>

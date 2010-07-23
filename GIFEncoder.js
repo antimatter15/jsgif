@@ -135,11 +135,10 @@
 		* BitmapData object to be treated as a GIF's frame
 		*/
 		
-		var addFrame = exports.addFrame = function addFrame(im/*BitmapData*/)/*Boolean*/
+		var addFrame = exports.addFrame = function addFrame(im/*BitmapData*/, is_imageData)/*Boolean*/
 		{
 			
 			if ((im == null) || !started || out == null) 
-			
 			{
 				throw new Error ("Please call start method before calling addFrame");
 				return false;
@@ -148,9 +147,12 @@
 		    var ok/*Boolean*/ = true;
 			
 		    try {
-				
-				image = im.getImageData(0,0, im.canvas.width, im.canvas.height);
-				if (!sizeSet) setSize(image.width, image.height);
+				if(!is_imageData){
+				  image = im.getImageData(0,0, im.canvas.width, im.canvas.height);
+				  if (!sizeSet) setSize(image.width, image.height);
+				}else{
+				  image = im;
+				}
 				getImagePixels(); // convert to correct format if necessary
 				analyzePixels(); // build color table & map pixels
 				
@@ -528,6 +530,12 @@
 			return out; 
 			
 		}
+		
+		exports.setProperties = function(has_start, is_first){
+		  started = has_start;
+		  firstFrame = is_first;
+		}
+		
 		return exports
 		  
 	}
