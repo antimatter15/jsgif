@@ -88,6 +88,13 @@ more than half of these, so good luck.
 
 `Boolean start()` This writes the GIF Header and returns `false` if it fails.
 
+`Boolean addFrame(CanvasRenderingContext2D context)` This is the magical magic behind everything. This adds a frame.
+
+`Boolean addFrame(CanvasPixelArray image, true)` This is the magical magic behind everything. This adds a frame. This time you need 
+you pass `true` as the second argument and then magic strikes and it loads your canvas pixel array (which can be a real array, I dont
+care and I think the program has learned from my constant apathy to also not care). But note that if you do, you must first manually call
+`setSize` which is happily defined just below this one.
+
 `void setSize(width, height)` Sets the canvas size. It's supposed to be private, but I'm exposing it anyway. Gets called automagically
 as the size of the first frame if you don't do that crappy hacky imageData.data hack.
 
