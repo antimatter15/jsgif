@@ -198,7 +198,6 @@
 	      
 				output(ent, outs);
 				ent = c;
-				console.log(maxmaxcode);
 				if (free_ent < maxmaxcode)
 				{
 					codetab[i] = free_ent++; // code -> hashtable

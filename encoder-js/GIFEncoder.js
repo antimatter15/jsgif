@@ -122,7 +122,7 @@
 			
 		    var ok/*Boolean*/ = true;
 			
-		    //try {
+		    try {
 				
 				image = im.getImageData(0,0, im.canvas.width, im.canvas.height);
 				if (!sizeSet) setSize(image.width, image.height);
@@ -145,9 +145,9 @@
 		      if (!firstFrame) writePalette(); // local color table
 		      writePixels(); // encode and write pixel data
 		      firstFrame = false;
-		    //} catch (e/*Error*/) {
-		    //  ok = false;
-		    //}
+		    } catch (e/*Error*/) {
+		      ok = false;
+		    }
 		    
 			return ok;
 			
