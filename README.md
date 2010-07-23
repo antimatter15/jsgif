@@ -102,7 +102,23 @@ it from the actionscript docs.
 GIF specification). Lower values (minimum = 1) produce better colors, but slow processing significantly. 10 is the default, and produces 
 good color mapping at reasonable speeds. Values greater than 20 do not yield significant improvements in speed. BLAH BLAH BLAH. Whatever
 
-`
+`void setRepeat(int iter)` Sets the number of times the set of GIF frames should be played. Default is 1; 0 means play indefinitely. 
+Must be invoked before the first image is added.
+
+`void setTransparent(Number color)` Sets the transparent color for the last added frame and any subsequent
+frames. Since all colors are subject to modification in the quantization
+process, the color in the final palette for each frame closest to the given
+color becomes the transparent color for that frame. May be set to null to
+indicate no transparent color.
+
+`ByteArray finish()` Adds final trailer to the GIF stream, if you don't call the finish method the GIF stream will not be valid. 
+
+`String stream()` Yay the only function that returns a non void/boolean. It's the magical stream function which should have been a getter which JS does
+support but I didnt' feel like making it a getter because getters are so weird and inconsistent. Like sure there's the nice pretty `get` thing
+but I think IE9/8 doesn't implement it because it's non standard or something and replaced it with a hideously ugly blah blah. So Anyway, it's a function.
+It returns a byteArray with three writeByte functions that you wouldn't care about and a `getData()` function which returns a binary string with the GIF.
+There's also a `.bin` attribute which contains an array with the binary stuff that I don't care about.
+
       
 WebWorkers
 ============
