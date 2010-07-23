@@ -3,8 +3,8 @@ Pure JavaScript HTML5 <canvas> to (Animated) GIF Conversion
 
 Based on [as3gif](http://code.google.com/p/as3gif/) Ported by [antimatter15](http://antimatter15.com)
 
-![canvas](raw_canvas.png "This is the raw canvas element saved as a non-animated PNG")
-![animation](converted_animation.gif "This is the GIF which was generated from the canvas.")
+![This is the raw canvas element saved as a non-animated PNG](jsgif/raw_canvas.png)
+![This is the GIF which was generated from the canvas.](jsgif/converted_animation.gif)
 
 
 This project is a port of the as3gif project which
