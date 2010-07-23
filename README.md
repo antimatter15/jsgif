@@ -5,6 +5,7 @@ Based on [as3gif](http://code.google.com/p/as3gif/) Ported by [antimatter15](htt
 
 ![This is the raw canvas element saved as a non-animated PNG](http://github.com/antimatter15/jsgif/raw/master/raw_canvas.png)
 ![This is the GIF which was generated from the canvas.](http://github.com/antimatter15/jsgif/raw/master/converted_animation.gif)
+![This is the GIF which was generated from the canvas.](http://github.com/antimatter15/jsgif/raw/master/clock.gif)
 
 > AS3GIF lets you play and encode animated GIF's with ActionScript 3
 
