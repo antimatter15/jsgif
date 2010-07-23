@@ -18,15 +18,18 @@
 	
 	GIFEncoder = function()
 	{
-	
+	    for(var i = 0, chr = {}; i < 256; i++)
+        chr[i] = String.fromCharCode(i);
+        
       function ByteArray(){
         this.bin = [];
       }
 
       ByteArray.prototype.getData = function(){
-	      return this.bin.map(function(a){
-	        return String.fromCharCode(a);
-	      }).join('')
+        
+	      for(var v = '', l = this.bin.length, i = 0; i < l; i++)
+          v += chr[this.bin[i]];
+        return v;
       }
       ByteArray.prototype.writeByte = function(val){
         this.bin.push(val);
