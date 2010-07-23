@@ -261,7 +261,7 @@
 		* int frame width.
 		*/
 		
-		var setSize = function setSize(w/*int*/, h/*int*/)/*void*/
+		var setSize = exports.setSize = function setSize(w/*int*/, h/*int*/)/*void*/
 		{
 			
 			if (started && !firstFrame) return;

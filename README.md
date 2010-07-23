@@ -72,6 +72,19 @@ Now the last part is to finalize the animation and get it for display.
       var binary_gif = encoder.stream().getData() //notice this is different from the as3gif package!
       var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
       
+Docs
+====
+
+Each of the files exposes a single global (see, at least it's considerate!). But since there's three files, that means that 
+there's three globals. But two of them are more of supporting libraries that I don't totally understand or care about enough
+to document. So I'm just gonna document GIFEncoder.
+
+`new GIFEncoder()` This is super parent function. You really don't need the `new` keyword because It's not really even using
+any special inheritance pattern. It's a closure that does some `var blah = exports.blah = function blah(){` for no good reason.
+Anyway, it returns an object with a bunch of methods that the section will be devoted to documenting. Note that I've never tested
+more than half of these, so good luck.
+
+
 
       
 WebWorkers
