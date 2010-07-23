@@ -28,6 +28,7 @@ for(var i = 0; i < 10; i++){
 encoder.finish();
 document.getElementById('image').src = 'data:image/gif;base64,'+encode64(encoder.stream().getData())
 
+//based on: https://developer.mozilla.org/en/Canvas_tutorial/Basic_animations#An_animation_example_2
 function clock(now){
   var ctx = context;
   ctx.save();
