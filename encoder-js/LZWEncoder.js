@@ -104,9 +104,8 @@
 		// characters, flush the packet to disk.
 		var char_out = function char_out(c/*Number*/, outs/*ByteArray*/)/*void*/
 		{
-			
 			accum[a_count++] = c;
-			if (a_count >= 254)flush_char(outs);
+			if (a_count >= 254) flush_char(outs);
 			
 		}
 		
@@ -134,7 +133,6 @@
 		var compress = exports.compress = function compress(init_bits/*int*/, outs/*ByteArray*/)/*void*/
 		
 		{
-			console.log(init_bits, outs);
 			var fcode/*int*/;
 			var i/*int*/ /* = 0 */;
 			var c/*int*/;
@@ -200,6 +198,7 @@
 	      
 				output(ent, outs);
 				ent = c;
+				console.log(maxmaxcode);
 				if (free_ent < maxmaxcode)
 				{
 					codetab[i] = free_ent++; // code -> hashtable
@@ -216,13 +215,11 @@
 		// ----------------------------------------------------------------------------
 		var encode = exports.encode = function encode(os/*ByteArray*/)/*void*/
 		{
-			console.log(os.bin.length);
 			os.writeByte(initCodeSize); // write "initial code size" byte
 			remaining = imgW * imgH; // reset navigation variables
 			curPixel = 0;
 			compress(initCodeSize + 1, os); // compress and write the pixel data
 			os.writeByte(0); // write block terminator
-    		console.log(os.bin.length);
 			
 		}
 		

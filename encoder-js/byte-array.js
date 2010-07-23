@@ -83,11 +83,13 @@ ByteArray.prototype = {
   },
 
   //writes a string
-  writeBytes: function(v){
+  writeBytes: function(v, offset, length){
+    //console.log(v.length, offset, length , 'check writebyte delta')
+    
+    v = v.slice(offset, length);
     for(var l = v.length, i = 0; i < l; i++){
       this.writeByte(v[i]);
     }
-    console.log(this.bin.length);
   },
 
 

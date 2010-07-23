@@ -8,11 +8,17 @@
 <script>
 var canvas = document.getElementById('bitmap');
 var context = canvas.getContext('2d');
-context.fillStyle = "rgb(255,255,255)";  
+
+var my_gradient = context.createLinearGradient(0, 0, 300, 0);
+my_gradient.addColorStop(0, "black");
+my_gradient.addColorStop(1, "white");
+
+
+context.fillStyle = my_gradient//"rgb(255,255,255)";  
 context.fillRect(0,0,canvas.width, canvas.height); //GIF can't do transparent so do white
 
 context.fillStyle = "rgb(200,0,0)";  
-context.fillRect (10, 10, 55, 50);  
+context.fillRect (10, 10, 75, 50);  
 
 console.log('yay');
 var encoder = new GIFEncoder();

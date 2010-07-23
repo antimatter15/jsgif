@@ -368,7 +368,6 @@
 		
 		var writeGraphicCtrlExt = function writeGraphicCtrlExt()/*void*/
 		{
-            console.log('writing graphic control stuff',out.bin.length);
 			out.writeByte(0x21); // extension introducer
 		    out.writeByte(0xf9); // GCE label
 		    out.writeByte(4); // data block size
@@ -469,11 +468,9 @@
 		
 		var writePalette = function writePalette()/*void*/
 		{
-			console.log('ct',out.bin.length);
 		    out.writeBytes(colorTab);
 		    var n/*int*/ = (3 * 256) - colorTab.length;
 		    for (var i/*int*/ = 0; i < n; i++) out.writeByte(0);
-			console.log('ct',out.bin.length);
 			
 		}
 		
