@@ -29,7 +29,7 @@
 	      }).join('')
       }
       ByteArray.prototype.writeByte = function(val){
-        this.bin.push(val >> 0 & 255);
+        this.bin.push(val);
       }
       ByteArray.prototype.writeUTFBytes = function(string){
         for(var l = string.length, i = 0; i < l; i++)
