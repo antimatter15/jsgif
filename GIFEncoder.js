@@ -531,7 +531,7 @@
 			
 		}
 		
-		exports.setProperties = function(has_start, is_first){
+		var setProperties = exports.setProperties = function setProperties(has_start, is_first){
 		  started = has_start;
 		  firstFrame = is_first;
 		}

@@ -85,7 +85,24 @@ Anyway, it returns an object with a bunch of methods that the section will be de
 more than half of these, so good luck.
 
 
+`Boolean start()` This writes the GIF Header and returns `false` if it fails.
 
+`void setSize(width, height)` Sets the canvas size. It's supposed to be private, but I'm exposing it anyway. Gets called automagically
+as the size of the first frame if you don't do that crappy hacky imageData.data hack.
+
+`void setDelay(int milliseconds)` the number of milliseconds to wait on each frame
+
+`void setDispose(int code)` Sets the GIF frame disposal code for the last added frame and any
+subsequent frames. Default is 0 if no transparent color has been set, otherwise 2. I have no clue what this means so I just copypasted
+it from the actionscript docs.
+
+`void setFrameRate(Number fps)` Sets frame rate in frames per second. Equivalent to `setDelay(1000/fps)`. I think that's stupid.
+
+`void setQuality(int quality)` Sets quality of color quantization (conversion of images to the maximum 256 colors allowed by the 
+GIF specification). Lower values (minimum = 1) produce better colors, but slow processing significantly. 10 is the default, and produces 
+good color mapping at reasonable speeds. Values greater than 20 do not yield significant improvements in speed. BLAH BLAH BLAH. Whatever
+
+`
       
 WebWorkers
 ============
