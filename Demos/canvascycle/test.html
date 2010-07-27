@@ -1,0 +1,212 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Canvas Cycle -- Color Cycling with Canvas</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Joseph Huckaby">
+	<!-- Date: 2010-07-17 -->
+	<style type="text/css">
+		body {
+			background: #000;
+			color: #888;
+			font-family:Helvetica,sans-serif; font-size:11px;
+			overflow: hidden;
+		}
+		
+		#palette_display {
+			margin: 15px 0px 15px 0px;
+			width: 608px;
+			display: none;
+		}
+		
+		div.palette_color {
+			float: left;
+			width: 16px;
+			height: 16px;
+			border: 1px solid #888;
+			margin: 1px 0px 0px 1px;
+		}
+		
+		div.clear {
+			clear: both;
+		}
+	</style>
+	
+	<script type="text/javascript" src="oop.js"></script>
+	<script type="text/javascript" src="palette.js"></script>
+	
+	<script language="JavaScript">
+		var ctx = null;
+		var imageData = null;
+		var clock = 0;
+		var inGame = false;
+		var lbm = null;
+		var globalTimeStart = (new Date()).getTime();
+		var showPalette = false;
+		var blendShiftEnabled = true;
+		var speedAdjust = 1.0;
+		var inited = false;
+		
+		function GetTickCount() {
+			// milliseconds since page load
+			return Math.floor( (new Date()).getTime() - globalTimeStart );
+		}
+		
+		function init() {
+			if (!inited) {
+				inited = true;
+				
+				var pal_disp = document.getElementById('palette_display');
+				for (var idx = 0, len = 256; idx < len; idx++) {
+					var div = document.createElement('div');
+					div.id = 'pal_' + idx;
+					div.className = 'palette_color';
+					pal_disp.appendChild( div );
+				}
+				var div = document.createElement('div');
+				div.className = 'clear';
+				pal_disp.appendChild( div );
+				
+				load_image( 'CORAL' );
+			}
+		}
+		
+		function load_image(name) {
+			var url = 'image.php?file='+name+'&callback=render_image';
+			var scr = document.createElement('SCRIPT');
+			scr.type = 'text/javascript';
+			scr.src = url;
+			document.getElementsByTagName('HEAD')[0].appendChild(scr);
+		}
+		
+		function render_image(img) {
+			// initialize, receive image data from server
+			img.palette = new Palette( img.colors, img.cycles );
+			lbm = img;
+			
+			document.getElementById('d_debug').innerHTML = img.filename;
+			
+			if (!ctx) ctx = document.getElementById('mycanvas').getContext('2d');
+			ctx.clearRect(0, 0, 640, 480);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillRect (0, 0, 640, 480);
+			
+			if (!imageData) {
+				if (ctx.createImageData) {
+					imageData = ctx.createImageData( 640, 480 );
+				}
+				else {
+					imageData = ctx.getImageData( 0, 0, 640, 480 );
+				}
+			}
+			
+			inGame = true;
+			animate();
+		}
+		
+		function animate() {
+			// animate one frame
+			var palette = lbm.palette;
+			var cycles = lbm.cycles;
+			var pixels = lbm.pixels;
+			
+			// cycle colors
+			palette.cycle( palette.baseColors, GetTickCount(), speedAdjust, blendShiftEnabled );
+			var colors = palette.getRawTransformedColors();
+			
+			if (showPalette) {
+				for (var idx = 0, len = colors.length; idx < len; idx++) {
+					var clr = colors[idx];
+					var div = document.getElementById('pal_'+idx);
+					div.style.backgroundColor = 'rgb(' + clr[0] + ',' + clr[1] + ',' + clr[2] + ')';
+				}
+				
+				// debug info
+				/* var html = '';
+				for (var idx = 0, len = palette.cycles.length; idx < len; idx++) {
+					var cycle = palette.cycles[idx];
+					if (cycle.rate) {
+						html += '<div>Cycle ' + idx + ' Amount: ' + cycle.cycleAmount + '</div>';
+					}
+				}
+				document.getElementById('d_debug').innerHTML = html;
+				document.getElementById('clocky').value = clock; */
+			}
+			
+			var data = imageData.data;
+			var i = 0;
+			var j = 0;
+			
+			for (var y = 0; y < 480; y++) {
+				for (var x = 0; x < 640; x++) {
+					var clr = colors[ pixels[j] ];
+					data[i + 0] = clr[0];
+				    data[i + 1] = clr[1];
+			        data[i + 2] = clr[2];
+			        data[i + 3] = 255; // Set Alpha
+					i += 4;
+					j++;
+				}
+			}
+			
+			ctx.putImageData( imageData, 0, 0 );
+			clock++;
+			FrameCount.count();
+			if (inGame) setTimeout( animate, 1 );
+		}
+		
+		function handle_key_down(e, field) {
+			if (e.keyCode == 13) {
+				e.preventDefault();
+				e.stopPropagation();
+				clock = parseInt( field.value, 10 );
+				animate();
+			}
+		}
+	</script>
+</head>
+<body>
+	
+	<div>
+		<canvas id="mycanvas" width="640" height="480" style="-webkit-transform: translate3d(0, 0, 0) scale(1);"></canvas>
+	</div>
+	
+	<div id="palette_display"></div>
+	
+	<div id="d_debug"></div>
+	
+	<br/><br/>
+	
+	<form>
+		<!-- Jump to clocky: <input type="text" id="clocky" size="10" value="0" onkeydown="handle_key_down(event, this)"/><br/> -->
+		<input type="button" value="Start" onClick="inGame = true; FrameCount.reset(); animate();"/>
+		<input type="button" value="Stop" onClick="inGame = false;"/>
+	</form>
+		
+	<script type="text/javascript" src="../framecount.js"></script>
+	
+	<script language="JavaScript">
+		if (document.addEventListener) {
+			// Good browsers
+			document.addEventListener( "DOMContentLoaded", function() {
+				document.removeEventListener( "DOMContentLoaded", arguments.callee, false );
+				init();
+			}, false );
+
+			// Just in case
+			window.addEventListener( "load", function() {
+				window.removeEventListener( "load", arguments.callee, false );
+				init();
+			}, false );
+		}
+		else if (window.attachEvent) {
+			// Bad browsers have to wait
+			window.attachEvent("onload", function() {
+				setTimeout( function() { init(); }, 1000 );
+			});
+		}
+	</script>
+</body>
+</html>

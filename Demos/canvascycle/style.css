@@ -1,0 +1,255 @@
+body {
+	background: #000;
+	color: #888;
+	font-family:Helvetica,sans-serif; font-size:11px;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	width: 2048px;
+}
+
+a {
+	color: #888;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#palette_display {
+	/* margin: 15px 0px 15px 0px; */
+	width: 150px;
+}
+
+div.palette_color {
+	float: left;
+	width: 8px;
+	height: 8px;
+	border: 1px solid #555;
+	margin: 1px 0px 0px 1px;
+}
+
+div.clear {
+	clear: both;
+}
+
+#container {
+	position: relative;
+	display: none;
+	left: 0px;
+	top: 0px;
+}
+
+#d_header {
+	margin-bottom: 10px;
+	width: 640px;
+	height: 30px;
+}
+
+#d_scene_selector {
+	float: left;
+	line-height: 30px;
+}
+
+#fe_scene {
+	outline: 0;
+	border: 0;
+	background-color: #000;
+	color: #888;
+	font-size: 14px;
+	padding: 3px;
+}
+
+#d_scene_btns {
+	float: left;
+	margin-left: 20px;
+	margin-top: 3px;
+}
+
+#d_options_control {
+	float: right;
+	margin-top: 3px;
+}
+
+#btn_options_toggle {
+	position: relative;
+	left: 0px;
+}
+
+#d_loading {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	left: 0px;
+	top: 0px;
+	z-index: 3;
+	background: url(images/loading.gif) no-repeat center center;
+}
+
+#mycanvas {
+	float: left;
+	z-index: 2;
+	
+	-webkit-transform: translate3d(0px, 0px, 0px) scale(1);
+	-webkit-transform-origin: 0px 0px;
+	
+	-moz-transform: translate(0px 0px) scale(1);
+	-moz-transform-origin: 0px 0px;
+	
+	-o-transform:translate(0px 0px) scale(1);
+	-o-transform-origin:0px 0px;
+}
+
+#d_options {
+	z-index: 1;
+	position: relative;
+	float: left;
+	width: 150px;
+	height: 480px;
+	/* border:1px solid #444; */
+	margin-left: 15px;
+}
+
+#d_debug {
+	margin-top: 7px;
+	color: #555;
+	font-weight: bold;
+}
+
+.section {
+	margin-bottom: 20px;
+}
+
+div.label {
+	font-weight: bold;
+	color: #444;
+	text-shadow: #777 -1px -1px 1px;
+	margin: 1px 0px 3px 0px;
+}
+
+.button {
+	display: inline-block;
+	width: auto;
+	height: 14px;
+	
+	padding: 2px 10px 2px 10px;
+	/* margin-right: 1px; */
+	border-left: 1px solid #888;
+	border-top: 1px solid #888;
+	border-right: 1px solid #444;
+	border-bottom: 1px solid #444;
+	cursor:pointer;
+	
+	font-size:13px; color:#888; font-weight:bold;
+	text-align: center;
+	
+	background: #444;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0, #444),
+	    color-stop(1, #000)
+	);
+	background: -moz-linear-gradient(
+	    center bottom,
+	    #444 0%,
+	    #000 100%
+	);
+	
+	-webkit-user-select: none;
+}
+
+.button.left {
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+}
+
+.button.right {
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	-moz-border-radius-bottomright: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+}
+
+.button:hover, .button.hover {
+	color: #aaa;
+	
+	background: #000;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0, rgb(0,0,0)),
+	    color-stop(1, rgb(0,0,0))
+	);
+	background: -moz-linear-gradient(
+	    center bottom,
+	    rgb(0,0,0) 0%,
+	    rgb(0,0,0) 100%
+	);
+	
+	/* box-shadow: rgba(255,255,255,0.8) 0px 0px 3px; 
+	-webkit-box-shadow: rgba(255,255,255,0.8) 0px 0px 3px; 
+	-moz-box-shadow: rgba(255,255,255,0.8) 0px 0px 3px; */
+}
+
+.button.selected {
+	border-left: 1px solid #444;
+	border-top: 1px solid #444;
+	border-right: 1px solid #666;
+	border-bottom: 1px solid #666;
+	
+	background: #444;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0, #000),
+	    color-stop(1, #666)
+	);
+	background: -moz-linear-gradient(
+	    center bottom,
+	    #000 0%,
+	    #666 100%
+	);
+	
+	color: #fff;
+	
+	cursor: default;
+}
+
+/* .button:active, .button.active {
+	padding: 3px 10px 3px 10px;
+	background-color:#ddd;
+	border-left: 1px solid #777;
+	border-top: 1px solid #777;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+} */
+
+.button.thin {
+	padding: 2px 6px 2px 6px;
+}
+
+#d_footer {
+	position: fixed;
+	left: 0px;
+	top: 100%;
+	margin-top: -20px;
+	height: 20px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+}
+
+#d_footer > span {
+	padding: 0px 10px 0px 10px;
+}

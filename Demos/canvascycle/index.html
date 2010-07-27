@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Canvas Cycle: True 8-bit Color Cycling with HTML5</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Joseph Huckaby">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<!-- Date: 2010-07-17 -->
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	<script src="../b64.js"></script> <script src="../../LZWEncoder.js"></script> <script src="../../NeuQuant.js"></script> <script src="../../GIFEncoder.js"></script> 
+	<script type="text/javascript" src="oop.js"></script>
+	<script type="text/javascript" src="tools.js"></script>
+	<script type="text/javascript" src="cookie.js"></script>
+	<script type="text/javascript" src="palette.js"></script>
+	<script type="text/javascript" src="bitmap.js"></script>
+	<script type="text/javascript" src="scenes.js"></script>
+	<script type="text/javascript" src="tween.js"></script>
+	<script type="text/javascript" src="framecount.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	
+</head>
+<body>
+	
+	<div id="container">
+		<div id="d_header">
+			<div id="d_scene_selector"></div>
+			<div id="d_scene_btns">
+				<div class="button left" onClick="CC.jumpScene(-1)">&lt; Prev</div><div class="button right" onClick="CC.jumpScene(1)">Next &gt;</div>
+			</div>
+			<div id="d_options_control">
+				<div id="btn_options_toggle" class="button left right" onClick="CC.toggleOptions()">Show Options &#x00BB;</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div id="d_loading"></div>
+		
+		<canvas id="mycanvas" width="640" height="480" style=""></canvas>
+		
+		<div id="d_options">
+			<div class="label">SOUND:</div>
+			<div class="section">
+				<div id="btn_sound_off" class="button left" onClick="CC.setSound(false)">Off</div><div id="btn_sound_on" class="button right selected" onClick="CC.setSound(true)">On</div>
+			</div>
+			
+			<div class="label">ZOOM:</div>
+			<div class="section">
+				<div id="btn_zoom_actual" class="button left selected" onClick="CC.setZoom(false)">Actual</div><div id="btn_zoom_max" class="button right" onClick="CC.setZoom(true)">Max</div>
+			</div>
+			
+			<div class="label">CYCLE SPEED:</div>
+			<div class="section">
+				<div id="btn_speed_025" class="button thin left" onClick="CC.setSpeed(0.25)">&frac14;</div><div id="btn_speed_05" class="button thin" onClick="CC.setSpeed(0.5)">&frac12;</div><div id="btn_speed_1" class="button thin selected" onClick="CC.setSpeed(1)">1</div><div id="btn_speed_2" class="button thin" onClick="CC.setSpeed(2)">2</div><div id="btn_speed_4" class="button thin right" onClick="CC.setSpeed(4)">4</div>
+			</div>
+			
+			<div class="label">CYCLE MODE:</div>
+			<div class="section">
+				<div id="btn_blendshift_off" class="button left" onClick="CC.setBlendShift(false)">Standard</div><div id="btn_blendshift_on" class="button right selected" onClick="CC.setBlendShift(true)">Blend</div>
+			</div>
+			
+			<div class="label">PALETTE:</div>
+			<div id="palette_display"></div>
+			
+			<div id="d_debug"></div>
+		</div>
+		
+		<div class="clear"></div>
+
+	</div>
+	
+	<div id="d_footer">
+		<span>Canvas Cycle: True 8-bit Color Cycling with HTML5</span>
+		<span>Art by <a href="http://www.markferrari.com" target="_blank">Mark Ferrari</a></span>
+		<span>Code by Joseph Huckaby</span>
+	</div>
+	
+	<!--[if IE]>
+	    <script type="text/javascript" 
+	     src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+	  <![endif]-->
+		
+	<script language="JavaScript">
+		if (document.addEventListener) {
+			// Good browsers
+			document.addEventListener( "DOMContentLoaded", function() {
+				document.removeEventListener( "DOMContentLoaded", arguments.callee, false );
+				CC.init();
+			}, false );
+
+			// Just in case
+			window.addEventListener( "load", function() {
+				window.removeEventListener( "load", arguments.callee, false );
+				CC.init();
+			}, false );
+			
+			window.addEventListener( "resize", function() {
+				CC.handleResize();
+			}, false );
+		}
+		else if (window.attachEvent) {
+			// Bad browsers have to wait
+			/* window.attachEvent("onload", function() {
+				setTimeout( function() { CC.init(); }, 1000 );
+			});
+			
+			window.attachEvent("onresize", function() {
+				CC.handleResize();
+			}); */
+			
+			// chrome frame
+			CFInstall.check({ mode: "overlay" });
+		}
+	</script>
+	
+	<script type="text/javascript" src="image.js"> </script>
+</body>
+</html>
