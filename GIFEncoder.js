@@ -298,6 +298,18 @@
 			
 		}
 		
+		var cont = exports.cont = function cont()/*Boolean*/
+		{
+			
+		    reset(); 
+		    var ok/*Boolean*/ = true;
+		    closeStream = false;
+		    out = new ByteArray;
+			
+		    return started = ok;
+			
+		}
+		
 		/**
 		* Analyzes image colors and creates color map.
 		*/
@@ -534,6 +546,7 @@
 		var setProperties = exports.setProperties = function setProperties(has_start, is_first){
 		  started = has_start;
 		  firstFrame = is_first;
+		  //out = new ByteArray; //??
 		}
 		
 		return exports
