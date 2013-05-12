@@ -268,7 +268,7 @@
 		   pix = 0;
 		   lim = lengthcount;
 		   samplepixels = lengthcount / (3 * samplefac);
-		   delta = samplepixels / ncycles;
+		   delta = (samplepixels / ncycles) | 0;
 		   alpha = initalpha;
 		   radius = initradius;
 		   
