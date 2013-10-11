@@ -21,7 +21,7 @@ Since it pretty much *is* GIFEncoder, you could consult the [as3gif how-to page]
 
 But there are some differences so I'll cover it here anyway.
 
-You first need to include the JS files. It's probably best if you include it in this order, but it shouldnt' matter too much.
+You first need to include the JS files. It's probably best if you include it in this order, but it shouldn't matter too much.
 
     <script type="text/javascript" src="LZWEncoder.js"></script>
     <script type="text/javascript" src="NeuQuant.js"></script>
