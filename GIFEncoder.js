@@ -142,7 +142,7 @@ GIFEncoder = function()
 	 * BitmapData object to be treated as a GIF's frame
 	 */
 
-	var addFrame = exports.addFrame = function addFrame(im/*BitmapData*/, is_imageData)
+	var addFrame = exports.addFrame = function addFrame(im, is_imageData)
 	{
 
 		if ((im == null) || !started || out == null) {
