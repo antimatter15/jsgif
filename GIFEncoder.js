@@ -172,7 +172,7 @@ GIFEncoder = function()
 			}
 
 			writeGraphicCtrlExt(); // write graphic control extension
-			if (comment != '') {
+			if (comment !== '') {
 				writeCommentExt(); // write comment extension
 			}
 			writeImageDesc(); // image descriptor
