@@ -261,7 +261,6 @@ GIFEncoder = function() {
 	 * @param os
 	 * OutputStream on which GIF images are written.
 	 * @return false if initial write failed.
-	 *
 	 */
 
 	var start = exports.start = function start() {
@@ -323,7 +322,6 @@ GIFEncoder = function() {
 
 	/**
 	 * Returns index of palette color closest to c
-	 *
 	 */
 
 	var findClosest = function findClosest(c) {
@@ -506,7 +504,7 @@ GIFEncoder = function() {
 	};
 
 	/**
-	 * retrieves the GIF stream
+	 * Retrieves the GIF stream
 	 */
 
 	var stream = exports.stream = function stream() {
