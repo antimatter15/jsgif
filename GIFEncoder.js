@@ -20,21 +20,21 @@
 			for (var v = '', l = this.bin.length, i = 0; i < l; i++)
 				v += chr[this.bin[i]];
 			return v;
-		}
+		};
 
 		ByteArray.prototype.writeByte = function(val) {
 			this.bin.push(val);
-		}
+		};
 
 		ByteArray.prototype.writeUTFBytes = function(string) {
 			for (var l = string.length, i = 0; i < l; i++)
 				this.writeByte(string.charCodeAt(i));
-		}
+		};
 
 		ByteArray.prototype.writeBytes = function(array, offset, length) {
 			for (var l = length || array.length, i = offset || 0; i < l; i++)
 				this.writeByte(array[i]);
-		}
+		};
 
 		var exports = {};
 		var width; // image size
@@ -47,7 +47,7 @@
 		var out;
 		var image; // current frame
 		var pixels; // BGR byte array from frame
-		var indexedPixels // converted frame indexed to palette
+		var indexedPixels; // converted frame indexed to palette
 		var colorDepth; // number of bit planes
 		var colorTab; // RGB palette
 		var usedEntry = []; // active palette entries
@@ -71,7 +71,7 @@
 
 			delay = Math.round(ms / 10);
 
-		}
+		};
 
 		/**
 		 * Sets the GIF frame disposal code for the last added frame and any
@@ -87,7 +87,7 @@
 
 			if (code >= 0) dispose = code;
 
-		}
+		};
 
 		/**
 		 * Sets the number of times the set of GIF frames should be played. Default is
@@ -104,7 +104,7 @@
 
 			if (iter >= 0) repeat = iter;
 
-		}
+		};
 
 		/**
 		 * Sets the transparent color for the last added frame and any subsequent
@@ -121,7 +121,7 @@
 
 			transparent = c;
 
-		}
+		};
 
 
 		/**
@@ -132,7 +132,7 @@
 		var setComment = exports.setComment = function setComment(c)
 		{
 			comment = c;
-		}
+		};
 
 
 
@@ -185,7 +185,7 @@
 
 			return ok;
 
-		}
+		};
 
 		/**
 		 * Adds final trailer to the GIF stream, if you don't call the finish method
@@ -204,7 +204,7 @@
 			}
 
 			return ok;
-		}
+		};
 
 		/**
 		 * Resets some members so that a new stream can be started.
@@ -223,7 +223,7 @@
 			closeStream = false;
 			firstFrame = true;
 
-		}
+		};
 
 		/**
 		 * * Sets frame rate in frames per second. Equivalent to
@@ -237,7 +237,7 @@
 
 			if (fps != 0xf) delay = Math.round(100/fps);
 
-		}
+		};
 
 		/**
 		 * Sets quality of color quantization (conversion of images to the maximum 256
@@ -256,7 +256,7 @@
 			if (quality < 1) quality = 1;
 			sample = quality;
 
-		}
+		};
 
 		/**
 		 * Sets the GIF frame size. The default size is the size of the first frame
@@ -275,9 +275,9 @@
 			height = h;
 			if (width < 1)width = 320;
 			if (height < 1)height = 240;
-			sizeSet = true
+			sizeSet = true;
 
-		}
+		};
 
 		/**
 		 * Initiates GIF file creation on the given stream.
@@ -302,7 +302,7 @@
 
 			return started = ok;
 
-		}
+		};
 
 		var cont = exports.cont = function cont()
 		{
@@ -314,7 +314,7 @@
 
 			return started = ok;
 
-		}
+		};
 
 		/**
 		 * Analyzes image colors and creates color map.
@@ -343,7 +343,7 @@
 			if (transparent != null) {
 				transIndex = findClosest(transparent);
 			}
-		}
+		};
 
 		/**
 		 * Returns index of palette color closest to c
@@ -375,7 +375,7 @@
 			}
 			return minpos;
 
-		}
+		};
 
 		/**
 		 * Extracts image pixels into byte array "pixels
@@ -405,7 +405,7 @@
 
 			}
 
-		}
+		};
 
 		/**
 		 * Writes Graphic Control Extension
@@ -439,7 +439,7 @@
 			out.writeByte(transIndex); // transparent color index
 			out.writeByte(0); // block terminator
 
-		}
+		};
 
 		/**
 		 * Writes Comment Extention
@@ -452,7 +452,7 @@
 			out.writeByte(comment.length); // Block Size (s)
 			out.writeUTFBytes(comment);
 			out.writeByte(0); // block terminator
-		}
+		};
 
 
 		/**
@@ -480,7 +480,7 @@
 					0 | // 4-5 reserved
 					palSize); // 6-8 size of color table
 			}
-		}
+		};
 
 		/**
 		 * Writes Logical Screen Descriptor
@@ -501,7 +501,7 @@
 			out.writeByte(0); // background color index
 			out.writeByte(0); // pixel aspect ratio - assume 1:1
 
-		}
+		};
 
 		/**
 		 * Writes Netscape application extension to define repeat count.
@@ -519,7 +519,7 @@
 			WriteShort(repeat); // loop count (extra iterations, 0=repeat forever)
 			out.writeByte(0); // block terminator
 
-		}
+		};
 
 		/**
 		 * Writes color table
@@ -531,7 +531,7 @@
 			var n = (3 * 256) - colorTab.length;
 			for (var i = 0; i < n; i++) out.writeByte(0);
 
-		}
+		};
 
 		var WriteShort = function WriteShort (pValue)
 		{
@@ -539,7 +539,7 @@
 			out.writeByte( pValue & 0xFF );
 			out.writeByte( (pValue >> 8) & 0xFF);
 
-		}
+		};
 
 		/**
 		 * Encodes and writes pixel data
@@ -551,7 +551,7 @@
 			var myencoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
 			myencoder.encode(out);
 
-		}
+		};
 
 		/**
 		 * retrieves the GIF stream
@@ -561,14 +561,14 @@
 
 			return out;
 
-		}
+		};
 
 		var setProperties = exports.setProperties = function setProperties(has_start, is_first){
 			started = has_start;
 			firstFrame = is_first;
 			//out = new ByteArray; //??
-		}
+		};
 
-		return exports
+		return exports;
 
-	}
+	};
