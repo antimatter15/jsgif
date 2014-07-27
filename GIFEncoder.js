@@ -145,45 +145,42 @@
 		var addFrame = exports.addFrame = function addFrame(im/*BitmapData*/, is_imageData)
 		{
 
-			if ((im == null) || !started || out == null)
-			{
-				throw new Error ("Please call start method before calling addFrame");
+			if ((im == null) || !started || out == null) {
+				throw new Error("Please call start method before calling addFrame");
 				return false;
 			}
 
 			var ok = true;
 
 			try {
-				if(!is_imageData){
-				  image = im.getImageData(0,0, im.canvas.width, im.canvas.height).data;
-				  if (!sizeSet) setSize(im.canvas.width, im.canvas.height);
-				}else{
-				  image = im;
+				if (!is_imageData) {
+					image = im.getImageData(0, 0, im.canvas.width, im.canvas.height).data;
+					if (!sizeSet) setSize(im.canvas.width, im.canvas.height);
+				} else {
+					image = im;
 				}
 				getImagePixels(); // convert to correct format if necessary
 				analyzePixels(); // build color table & map pixels
 
-				if (firstFrame)
-				{
+				if (firstFrame) {
 					writeLSD(); // logical screen descriptior
 					writePalette(); // global color table
-					if (repeat >= 0)
-					{
+					if (repeat >= 0) {
 						// use NS app extension to indicate reps
 						writeNetscapeExt();
 					}
-			  }
+				}
 
-			  writeGraphicCtrlExt(); // write graphic control extension
-			  if(comment!='') {
-				writeCommentExt(); // write comment extension
-			  }
-			  writeImageDesc(); // image descriptor
-			  if (!firstFrame) writePalette(); // local color table
-			  writePixels(); // encode and write pixel data
-			  firstFrame = false;
-			} catch (e/*Error*/) {
-			  ok = false;
+				writeGraphicCtrlExt(); // write graphic control extension
+				if (comment != '') {
+					writeCommentExt(); // write comment extension
+				}
+				writeImageDesc(); // image descriptor
+				if (!firstFrame) writePalette(); // local color table
+				writePixels(); // encode and write pixel data
+				firstFrame = false;
+			} catch (e /*Error*/ ) {
+				ok = false;
 			}
 
 			return ok;
