@@ -133,7 +133,6 @@ GIFEncoder = function() {
 
 		if ((im === null) || !started || out === null) {
 			throw new Error("Please call start method before calling addFrame");
-			return false;
 		}
 
 		var ok = true;
