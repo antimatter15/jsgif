@@ -566,7 +566,6 @@
 		var setProperties = exports.setProperties = function setProperties(has_start, is_first){
 			started = has_start;
 			firstFrame = is_first;
-			//out = new ByteArray; //??
 		};
 
 		return exports;
