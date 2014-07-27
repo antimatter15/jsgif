@@ -52,7 +52,7 @@
 		var delay = 0; // frame delay (hundredths)
 		var started = false; // ready to output frames
 		var out;
-		var image/*Bitmap*/; // current frame
+		var image; // current frame
 		var pixels; // BGR byte array from frame
 		var indexedPixels // converted frame indexed to palette
 		var colorDepth; // number of bit planes
