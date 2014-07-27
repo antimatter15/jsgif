@@ -559,7 +559,7 @@
 		var writePixels = function writePixels()/*void*/
 		{
 
-			var myencoder/*LZWEncoder*/ = new LZWEncoder(width, height, indexedPixels, colorDepth);
+			var myencoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
 			myencoder.encode(out);
 
 		}
