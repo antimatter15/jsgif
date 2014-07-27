@@ -293,7 +293,7 @@ GIFEncoder = function()
 		reset();
 		var ok = true;
 		closeStream = false;
-		out = new ByteArray;
+		out = new ByteArray();
 		try {
 			out.writeUTFBytes("GIF89a"); // header
 		} catch (e) {
@@ -310,7 +310,7 @@ GIFEncoder = function()
 		reset();
 		var ok = true;
 		closeStream = false;
-		out = new ByteArray;
+		out = new ByteArray();
 
 		return started = ok;
 
