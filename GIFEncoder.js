@@ -179,7 +179,7 @@
 				if (!firstFrame) writePalette(); // local color table
 				writePixels(); // encode and write pixel data
 				firstFrame = false;
-			} catch (e /*Error*/ ) {
+			} catch (e) {
 				ok = false;
 			}
 
@@ -199,7 +199,7 @@
 			started = false;
 			try {
 				out.writeByte(0x3b); // gif trailer
-			} catch (e /*Error*/ ) {
+			} catch (e) {
 				ok = false;
 			}
 
@@ -296,7 +296,7 @@
 			out = new ByteArray;
 			try {
 				out.writeUTFBytes("GIF89a"); // header
-			} catch (e /*Error*/ ) {
+			} catch (e) {
 				ok = false;
 			}
 
