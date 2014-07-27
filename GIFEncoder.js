@@ -6,16 +6,6 @@
  * @version 0.1 AS3 implementation
  */
 
-
-	//import flash.utils.ByteArray;
-	//import flash.display.BitmapData;
-	//import flash.display.Bitmap;
-	//import org.bytearray.gif.encoder.NeuQuant
-	//import flash.net.URLRequestHeader;
-	//import flash.net.URLRequestMethod;
-	//import flash.net.URLRequest;
-	//import flash.net.navigateToURL;
-
 	GIFEncoder = function()
 	{
 		for(var i = 0, chr = {}; i < 256; i++)
