@@ -145,7 +145,7 @@ GIFEncoder = function()
 	var addFrame = exports.addFrame = function addFrame(im, is_imageData)
 	{
 
-		if ((im == null) || !started || out == null) {
+		if ((im === null) || !started || out === null) {
 			throw new Error("Please call start method before calling addFrame");
 			return false;
 		}
@@ -340,7 +340,7 @@ GIFEncoder = function()
 		colorDepth = 8;
 		palSize = 7;
 		// get closest match to transparent color if specified
-		if (transparent != null) {
+		if (transparent !== null) {
 			transIndex = findClosest(transparent);
 		}
 	};
@@ -353,7 +353,7 @@ GIFEncoder = function()
 	var findClosest = function findClosest(c)
 	{
 
-		if (colorTab == null) return -1;
+		if (colorTab === null) return -1;
 		var r = (c & 0xFF0000) >> 16;
 		var g = (c & 0x00FF00) >> 8;
 		var b = (c & 0x0000FF);
@@ -418,7 +418,7 @@ GIFEncoder = function()
 		out.writeByte(4); // data block size
 		var transp
 		var disp;
-		if (transparent == null) {
+		if (transparent === null) {
 			transp = 0;
 			disp = 0; // dispose = no action
 		} else {
