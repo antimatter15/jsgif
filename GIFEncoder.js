@@ -198,13 +198,12 @@
 			var ok = true;
 			started = false;
 			try {
-			  out.writeByte(0x3b); // gif trailer
-			} catch (e/*Error*/) {
-			  ok = false;
+				out.writeByte(0x3b); // gif trailer
+			} catch (e /*Error*/ ) {
+				ok = false;
 			}
 
 			return ok;
-
 		}
 
 		/**
