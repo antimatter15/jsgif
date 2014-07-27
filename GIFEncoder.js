@@ -116,7 +116,7 @@ GIFEncoder = function()
 	 * Color to be treated as transparent on display.
 	 */
 
-	var setTransparent = exports.setTransparent = function setTransparent(c/*Number*/)
+	var setTransparent = exports.setTransparent = function setTransparent(c)
 	{
 
 		transparent = c;
@@ -232,7 +232,7 @@ GIFEncoder = function()
 	 * float frame rate (frames per second)
 	 */
 
-	var setFrameRate = exports.setFrameRate = function setFrameRate(fps/*Number*/)
+	var setFrameRate = exports.setFrameRate = function setFrameRate(fps)
 	{
 
 		if (fps != 0xf) delay = Math.round(100/fps);
@@ -350,7 +350,7 @@ GIFEncoder = function()
 	 *
 	 */
 
-	var findClosest = function findClosest(c/*Number*/)
+	var findClosest = function findClosest(c)
 	{
 
 		if (colorTab == null) return -1;
