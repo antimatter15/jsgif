@@ -66,9 +66,7 @@ GIFEncoder = function() {
 	 */
 
 	var setDelay = exports.setDelay = function setDelay(ms) {
-
 		delay = Math.round(ms / 10);
-
 	};
 
 	/**
@@ -81,9 +79,7 @@ GIFEncoder = function() {
 	 */
 
 	var setDispose = exports.setDispose = function setDispose(code) {
-
 		if (code >= 0) dispose = code;
-
 	};
 
 	/**
@@ -97,9 +93,7 @@ GIFEncoder = function() {
 	 */
 
 	var setRepeat = exports.setRepeat = function setRepeat(iter) {
-
 		if (iter >= 0) repeat = iter;
-
 	};
 
 	/**
@@ -113,9 +107,7 @@ GIFEncoder = function() {
 	 */
 
 	var setTransparent = exports.setTransparent = function setTransparent(c) {
-
 		transparent = c;
-
 	};
 
 
@@ -124,6 +116,7 @@ GIFEncoder = function() {
 	 * @param
 	 * string to be insterted as comment
 	 */
+
 	var setComment = exports.setComment = function setComment(c) {
 		comment = c;
 	};
@@ -177,7 +170,6 @@ GIFEncoder = function() {
 		}
 
 		return ok;
-
 	};
 
 	/**
@@ -186,9 +178,12 @@ GIFEncoder = function() {
 	 */
 
 	var finish = exports.finish = function finish() {
+
 		if (!started) return false;
+
 		var ok = true;
 		started = false;
+
 		try {
 			out.writeByte(0x3b); // gif trailer
 		} catch (e) {
@@ -213,7 +208,6 @@ GIFEncoder = function() {
 		colorTab = null;
 		closeStream = false;
 		firstFrame = true;
-
 	};
 
 	/**
@@ -224,9 +218,7 @@ GIFEncoder = function() {
 	 */
 
 	var setFrameRate = exports.setFrameRate = function setFrameRate(fps) {
-
 		if (fps != 0xf) delay = Math.round(100 / fps);
-
 	};
 
 	/**
@@ -241,10 +233,8 @@ GIFEncoder = function() {
 	 */
 
 	var setQuality = exports.setQuality = function setQuality(quality) {
-
 		if (quality < 1) quality = 1;
 		sample = quality;
-
 	};
 
 	/**
@@ -264,7 +254,6 @@ GIFEncoder = function() {
 		if (width < 1) width = 320;
 		if (height < 1) height = 240;
 		sizeSet = true;
-
 	};
 
 	/**
@@ -288,7 +277,6 @@ GIFEncoder = function() {
 		}
 
 		return started = ok;
-
 	};
 
 	var cont = exports.cont = function cont() {
@@ -299,7 +287,6 @@ GIFEncoder = function() {
 		out = new ByteArray();
 
 		return started = ok;
-
 	};
 
 	/**
@@ -312,8 +299,10 @@ GIFEncoder = function() {
 		var nPix = len / 3;
 		indexedPixels = [];
 		var nq = new NeuQuant(pixels, len, sample);
+
 		// initialize quantizer
 		colorTab = nq.process(); // create reduced palette
+
 		// map image pixels to new palette
 		var k = 0;
 		for (var j = 0; j < nPix; j++) {
@@ -321,9 +310,11 @@ GIFEncoder = function() {
 			usedEntry[index] = true;
 			indexedPixels[j] = index;
 		}
+
 		pixels = null;
 		colorDepth = 8;
 		palSize = 7;
+
 		// get closest match to transparent color if specified
 		if (transparent !== null) {
 			transIndex = findClosest(transparent);
@@ -358,7 +349,6 @@ GIFEncoder = function() {
 			i++;
 		}
 		return minpos;
-
 	};
 
 	/**
@@ -366,7 +356,6 @@ GIFEncoder = function() {
 	 */
 
 	var getImagePixels = function getImagePixels() {
-
 		var w = width;
 		var h = height;
 		pixels = [];
@@ -385,7 +374,6 @@ GIFEncoder = function() {
 			}
 
 		}
-
 	};
 
 	/**
@@ -418,14 +406,13 @@ GIFEncoder = function() {
 		WriteShort(delay); // delay x 1/100 sec
 		out.writeByte(transIndex); // transparent color index
 		out.writeByte(0); // block terminator
-
 	};
 
 	/**
 	 * Writes Comment Extention
 	 */
-	var writeCommentExt = function writeCommentExt() {
 
+	var writeCommentExt = function writeCommentExt() {
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xfe); // comment label
 		out.writeByte(comment.length); // Block Size (s)
@@ -477,7 +464,6 @@ GIFEncoder = function() {
 
 		out.writeByte(0); // background color index
 		out.writeByte(0); // pixel aspect ratio - assume 1:1
-
 	};
 
 	/**
@@ -485,7 +471,6 @@ GIFEncoder = function() {
 	 */
 
 	var writeNetscapeExt = function writeNetscapeExt() {
-
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xff); // app extension label
 		out.writeByte(11); // block size
@@ -494,7 +479,6 @@ GIFEncoder = function() {
 		out.writeByte(1); // loop sub-block id
 		WriteShort(repeat); // loop count (extra iterations, 0=repeat forever)
 		out.writeByte(0); // block terminator
-
 	};
 
 	/**
@@ -505,14 +489,11 @@ GIFEncoder = function() {
 		out.writeBytes(colorTab);
 		var n = (3 * 256) - colorTab.length;
 		for (var i = 0; i < n; i++) out.writeByte(0);
-
 	};
 
 	var WriteShort = function WriteShort(pValue) {
-
 		out.writeByte(pValue & 0xFF);
 		out.writeByte((pValue >> 8) & 0xFF);
-
 	};
 
 	/**
@@ -520,19 +501,16 @@ GIFEncoder = function() {
 	 */
 
 	var writePixels = function writePixels() {
-
 		var myencoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
 		myencoder.encode(out);
-
 	};
 
 	/**
 	 * retrieves the GIF stream
 	 */
+
 	var stream = exports.stream = function stream() {
-
 		return out;
-
 	};
 
 	var setProperties = exports.setProperties = function setProperties(has_start, is_first) {
