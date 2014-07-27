@@ -8,30 +8,33 @@
 
 	GIFEncoder = function()
 	{
-		for(var i = 0, chr = {}; i < 256; i++)
-		chr[i] = String.fromCharCode(i);
 
-	  function ByteArray(){
-		this.bin = [];
-	  }
+		for (var i = 0, chr = {}; i < 256; i++)
+			chr[i] = String.fromCharCode(i);
 
-	  ByteArray.prototype.getData = function(){
+		function ByteArray() {
+			this.bin = [];
+		}
 
-		  for(var v = '', l = this.bin.length, i = 0; i < l; i++)
-		  v += chr[this.bin[i]];
-		return v;
-	  }
-	  ByteArray.prototype.writeByte = function(val){
-		this.bin.push(val);
-	  }
-	  ByteArray.prototype.writeUTFBytes = function(string){
-		for(var l = string.length, i = 0; i < l; i++)
-		  this.writeByte(string.charCodeAt(i));
-	  }
-	  ByteArray.prototype.writeBytes = function(array, offset, length){
-		for(var l = length || array.length, i = offset||0; i < l; i++)
-		  this.writeByte(array[i]);
-	  }
+		ByteArray.prototype.getData = function() {
+			for (var v = '', l = this.bin.length, i = 0; i < l; i++)
+				v += chr[this.bin[i]];
+			return v;
+		}
+
+		ByteArray.prototype.writeByte = function(val) {
+			this.bin.push(val);
+		}
+
+		ByteArray.prototype.writeUTFBytes = function(string) {
+			for (var l = string.length, i = 0; i < l; i++)
+				this.writeByte(string.charCodeAt(i));
+		}
+
+		ByteArray.prototype.writeBytes = function(array, offset, length) {
+			for (var l = length || array.length, i = offset || 0; i < l; i++)
+				this.writeByte(array[i]);
+		}
 
 		var exports = {};
 		var width; // image size
