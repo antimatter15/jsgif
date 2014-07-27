@@ -51,12 +51,12 @@
 		var repeat = -1; // no repeat
 		var delay = 0; // frame delay (hundredths)
 		var started = false; // ready to output frames
-		var out/*ByteArray*/;
+		var out;
 		var image/*Bitmap*/; // current frame
-		var pixels/*ByteArray*/; // BGR byte array from frame
-		var indexedPixels/*ByteArray*/ // converted frame indexed to palette
+		var pixels; // BGR byte array from frame
+		var indexedPixels // converted frame indexed to palette
 		var colorDepth; // number of bit planes
-		var colorTab/*ByteArray*/; // RGB palette
+		var colorTab; // RGB palette
 		var usedEntry/*Array*/ = new Array; // active palette entries
 		var palSize = 7; // color table size (bits-1)
 		var dispose = -1; // disposal code (-1 = use default)
@@ -567,7 +567,7 @@
 		/**
 		* retrieves the GIF stream
 		*/
-		var stream = exports.stream = function stream ( )/*ByteArray*/
+		var stream = exports.stream = function stream ( )
 		{
 
 			return out;
