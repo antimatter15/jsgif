@@ -57,7 +57,7 @@
 		var indexedPixels // converted frame indexed to palette
 		var colorDepth; // number of bit planes
 		var colorTab; // RGB palette
-		var usedEntry/*Array*/ = new Array; // active palette entries
+		var usedEntry = new Array; // active palette entries
 		var palSize = 7; // color table size (bits-1)
 		var dispose = -1; // disposal code (-1 = use default)
 		var closeStream = false; // close stream when finished
