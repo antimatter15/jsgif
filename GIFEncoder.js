@@ -73,7 +73,7 @@
 		* @param ms
 		*/
 
-		var setDelay = exports.setDelay = function setDelay(ms)/*void*/
+		var setDelay = exports.setDelay = function setDelay(ms)
 		{
 
 			delay = Math.round(ms / 10);
@@ -89,7 +89,7 @@
 		* int disposal code.
 		*/
 
-		var setDispose = exports.setDispose = function setDispose(code)/*void*/
+		var setDispose = exports.setDispose = function setDispose(code)
 		{
 
 			if (code >= 0) dispose = code;
@@ -106,7 +106,7 @@
 		* @return
 		*/
 
-		var setRepeat = exports.setRepeat = function setRepeat(iter)/*void*/
+		var setRepeat = exports.setRepeat = function setRepeat(iter)
 		{
 
 			if (iter >= 0) repeat = iter;
@@ -123,7 +123,7 @@
 		* Color to be treated as transparent on display.
 		*/
 
-		var setTransparent = exports.setTransparent = function setTransparent(c/*Number*/)/*void*/
+		var setTransparent = exports.setTransparent = function setTransparent(c/*Number*/)
 		{
 
 			transparent = c;
@@ -222,7 +222,7 @@
 		* This method is actually called by the start method
 		*/
 
-		var reset = function reset ( )/*void*/
+		var reset = function reset ( )
 		{
 
 			// reset for subsequent use
@@ -243,7 +243,7 @@
 		* float frame rate (frames per second)
 		*/
 
-		var setFrameRate = exports.setFrameRate = function setFrameRate(fps/*Number*/)/*void*/
+		var setFrameRate = exports.setFrameRate = function setFrameRate(fps/*Number*/)
 		{
 
 			if (fps != 0xf) delay = Math.round(100/fps);
@@ -261,7 +261,7 @@
 		* @return
 		*/
 
-		var setQuality = exports.setQuality = function setQuality(quality)/*void*/
+		var setQuality = exports.setQuality = function setQuality(quality)
 		{
 
 			if (quality < 1) quality = 1;
@@ -278,7 +278,7 @@
 		* int frame width.
 		*/
 
-		var setSize = exports.setSize = function setSize(w, h)/*void*/
+		var setSize = exports.setSize = function setSize(w, h)
 		{
 
 			if (started && !firstFrame) return;
@@ -331,7 +331,7 @@
 		* Analyzes image colors and creates color map.
 		*/
 
-		var analyzePixels = function analyzePixels()/*void*/
+		var analyzePixels = function analyzePixels()
 		{
 
 			var len = pixels.length;
@@ -392,7 +392,7 @@
 		* Extracts image pixels into byte array "pixels
 		*/
 
-		var getImagePixels = function getImagePixels()/*void*/
+		var getImagePixels = function getImagePixels()
 		{
 
 			var w = width;
@@ -422,7 +422,7 @@
 		* Writes Graphic Control Extension
 		*/
 
-		var writeGraphicCtrlExt = function writeGraphicCtrlExt()/*void*/
+		var writeGraphicCtrlExt = function writeGraphicCtrlExt()
 		{
 			out.writeByte(0x21); // extension introducer
 			out.writeByte(0xf9); // GCE label
@@ -455,7 +455,7 @@
 		/**
 		* Writes Comment Extention
 		*/
-		var writeCommentExt = function writeCommentExt()/*void*/
+		var writeCommentExt = function writeCommentExt()
 		{
 
 			out.writeByte(0x21); // extension introducer
@@ -470,7 +470,7 @@
 		* Writes Image Descriptor
 		*/
 
-		var writeImageDesc = function writeImageDesc()/*void*/
+		var writeImageDesc = function writeImageDesc()
 		{
 
 			out.writeByte(0x2c); // image separator
@@ -497,7 +497,7 @@
 		* Writes Logical Screen Descriptor
 		*/
 
-		var writeLSD = function writeLSD()/*void*/
+		var writeLSD = function writeLSD()
 		{
 
 			// logical screen size
@@ -518,7 +518,7 @@
 		* Writes Netscape application extension to define repeat count.
 		*/
 
-		var writeNetscapeExt = function writeNetscapeExt()/*void*/
+		var writeNetscapeExt = function writeNetscapeExt()
 		{
 
 			out.writeByte(0x21); // extension introducer
@@ -536,7 +536,7 @@
 		* Writes color table
 		*/
 
-		var writePalette = function writePalette()/*void*/
+		var writePalette = function writePalette()
 		{
 			out.writeBytes(colorTab);
 			var n = (3 * 256) - colorTab.length;
@@ -544,7 +544,7 @@
 
 		}
 
-		var WriteShort = function WriteShort (pValue)/*void*/
+		var WriteShort = function WriteShort (pValue)
 		{
 
 			out.writeByte( pValue & 0xFF );
@@ -556,7 +556,7 @@
 		* Encodes and writes pixel data
 		*/
 
-		var writePixels = function writePixels()/*void*/
+		var writePixels = function writePixels()
 		{
 
 			var myencoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
