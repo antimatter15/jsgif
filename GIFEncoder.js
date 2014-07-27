@@ -6,8 +6,7 @@
  * @version 0.1 AS3 implementation
  */
 
-GIFEncoder = function()
-{
+GIFEncoder = function() {
 
 	for (var i = 0, chr = {}; i < 256; i++)
 		chr[i] = String.fromCharCode(i);
@@ -66,8 +65,7 @@ GIFEncoder = function()
 	 * @param ms
 	 */
 
-	var setDelay = exports.setDelay = function setDelay(ms)
-	{
+	var setDelay = exports.setDelay = function setDelay(ms) {
 
 		delay = Math.round(ms / 10);
 
@@ -82,8 +80,7 @@ GIFEncoder = function()
 	 * int disposal code.
 	 */
 
-	var setDispose = exports.setDispose = function setDispose(code)
-	{
+	var setDispose = exports.setDispose = function setDispose(code) {
 
 		if (code >= 0) dispose = code;
 
@@ -99,8 +96,7 @@ GIFEncoder = function()
 	 * @return
 	 */
 
-	var setRepeat = exports.setRepeat = function setRepeat(iter)
-	{
+	var setRepeat = exports.setRepeat = function setRepeat(iter) {
 
 		if (iter >= 0) repeat = iter;
 
@@ -116,8 +112,7 @@ GIFEncoder = function()
 	 * Color to be treated as transparent on display.
 	 */
 
-	var setTransparent = exports.setTransparent = function setTransparent(c)
-	{
+	var setTransparent = exports.setTransparent = function setTransparent(c) {
 
 		transparent = c;
 
@@ -129,8 +124,7 @@ GIFEncoder = function()
 	 * @param
 	 * string to be insterted as comment
 	 */
-	var setComment = exports.setComment = function setComment(c)
-	{
+	var setComment = exports.setComment = function setComment(c) {
 		comment = c;
 	};
 
@@ -142,8 +136,7 @@ GIFEncoder = function()
 	 * BitmapData object to be treated as a GIF's frame
 	 */
 
-	var addFrame = exports.addFrame = function addFrame(im, is_imageData)
-	{
+	var addFrame = exports.addFrame = function addFrame(im, is_imageData) {
 
 		if ((im === null) || !started || out === null) {
 			throw new Error("Please call start method before calling addFrame");
@@ -192,8 +185,7 @@ GIFEncoder = function()
 	 * the GIF stream will not be valid.
 	 */
 
-	var finish = exports.finish = function finish()
-	{
+	var finish = exports.finish = function finish() {
 		if (!started) return false;
 		var ok = true;
 		started = false;
@@ -211,8 +203,7 @@ GIFEncoder = function()
 	 * This method is actually called by the start method
 	 */
 
-	var reset = function reset ( )
-	{
+	var reset = function reset() {
 
 		// reset for subsequent use
 		transIndex = 0;
@@ -232,10 +223,9 @@ GIFEncoder = function()
 	 * float frame rate (frames per second)
 	 */
 
-	var setFrameRate = exports.setFrameRate = function setFrameRate(fps)
-	{
+	var setFrameRate = exports.setFrameRate = function setFrameRate(fps) {
 
-		if (fps != 0xf) delay = Math.round(100/fps);
+		if (fps != 0xf) delay = Math.round(100 / fps);
 
 	};
 
@@ -250,8 +240,7 @@ GIFEncoder = function()
 	 * @return
 	 */
 
-	var setQuality = exports.setQuality = function setQuality(quality)
-	{
+	var setQuality = exports.setQuality = function setQuality(quality) {
 
 		if (quality < 1) quality = 1;
 		sample = quality;
@@ -267,14 +256,13 @@ GIFEncoder = function()
 	 * int frame width.
 	 */
 
-	var setSize = exports.setSize = function setSize(w, h)
-	{
+	var setSize = exports.setSize = function setSize(w, h) {
 
 		if (started && !firstFrame) return;
 		width = w;
 		height = h;
-		if (width < 1)width = 320;
-		if (height < 1)height = 240;
+		if (width < 1) width = 320;
+		if (height < 1) height = 240;
 		sizeSet = true;
 
 	};
@@ -287,8 +275,7 @@ GIFEncoder = function()
 	 *
 	 */
 
-	var start = exports.start = function start()
-	{
+	var start = exports.start = function start() {
 
 		reset();
 		var ok = true;
@@ -304,8 +291,7 @@ GIFEncoder = function()
 
 	};
 
-	var cont = exports.cont = function cont()
-	{
+	var cont = exports.cont = function cont() {
 
 		reset();
 		var ok = true;
@@ -320,8 +306,7 @@ GIFEncoder = function()
 	 * Analyzes image colors and creates color map.
 	 */
 
-	var analyzePixels = function analyzePixels()
-	{
+	var analyzePixels = function analyzePixels() {
 
 		var len = pixels.length;
 		var nPix = len / 3;
@@ -350,8 +335,7 @@ GIFEncoder = function()
 	 *
 	 */
 
-	var findClosest = function findClosest(c)
-	{
+	var findClosest = function findClosest(c) {
 
 		if (colorTab === null) return -1;
 		var r = (c & 0xFF0000) >> 16;
@@ -381,8 +365,7 @@ GIFEncoder = function()
 	 * Extracts image pixels into byte array "pixels
 	 */
 
-	var getImagePixels = function getImagePixels()
-	{
+	var getImagePixels = function getImagePixels() {
 
 		var w = width;
 		var h = height;
@@ -390,16 +373,14 @@ GIFEncoder = function()
 		var data = image;
 		var count = 0;
 
-		for ( var i = 0; i < h; i++ )
-		{
+		for (var i = 0; i < h; i++) {
 
-			for (var j = 0; j < w; j++ )
-			{
+			for (var j = 0; j < w; j++) {
 
-				var b = (i*w*4)+j*4;
+				var b = (i * w * 4) + j * 4;
 				pixels[count++] = data[b];
-				pixels[count++] = data[b+1];
-				pixels[count++] = data[b+2];
+				pixels[count++] = data[b + 1];
+				pixels[count++] = data[b + 2];
 
 			}
 
@@ -411,8 +392,7 @@ GIFEncoder = function()
 	 * Writes Graphic Control Extension
 	 */
 
-	var writeGraphicCtrlExt = function writeGraphicCtrlExt()
-	{
+	var writeGraphicCtrlExt = function writeGraphicCtrlExt() {
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xf9); // GCE label
 		out.writeByte(4); // data block size
@@ -444,8 +424,7 @@ GIFEncoder = function()
 	/**
 	 * Writes Comment Extention
 	 */
-	var writeCommentExt = function writeCommentExt()
-	{
+	var writeCommentExt = function writeCommentExt() {
 
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xfe); // comment label
@@ -459,8 +438,7 @@ GIFEncoder = function()
 	 * Writes Image Descriptor
 	 */
 
-	var writeImageDesc = function writeImageDesc()
-	{
+	var writeImageDesc = function writeImageDesc() {
 
 		out.writeByte(0x2c); // image separator
 		WriteShort(0); // image position x,y = 0,0
@@ -486,8 +464,7 @@ GIFEncoder = function()
 	 * Writes Logical Screen Descriptor
 	 */
 
-	var writeLSD = function writeLSD()
-	{
+	var writeLSD = function writeLSD() {
 
 		// logical screen size
 		WriteShort(width);
@@ -507,8 +484,7 @@ GIFEncoder = function()
 	 * Writes Netscape application extension to define repeat count.
 	 */
 
-	var writeNetscapeExt = function writeNetscapeExt()
-	{
+	var writeNetscapeExt = function writeNetscapeExt() {
 
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xff); // app extension label
@@ -525,19 +501,17 @@ GIFEncoder = function()
 	 * Writes color table
 	 */
 
-	var writePalette = function writePalette()
-	{
+	var writePalette = function writePalette() {
 		out.writeBytes(colorTab);
 		var n = (3 * 256) - colorTab.length;
 		for (var i = 0; i < n; i++) out.writeByte(0);
 
 	};
 
-	var WriteShort = function WriteShort (pValue)
-	{
+	var WriteShort = function WriteShort(pValue) {
 
-		out.writeByte( pValue & 0xFF );
-		out.writeByte( (pValue >> 8) & 0xFF);
+		out.writeByte(pValue & 0xFF);
+		out.writeByte((pValue >> 8) & 0xFF);
 
 	};
 
@@ -545,8 +519,7 @@ GIFEncoder = function()
 	 * Encodes and writes pixel data
 	 */
 
-	var writePixels = function writePixels()
-	{
+	var writePixels = function writePixels() {
 
 		var myencoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
 		myencoder.encode(out);
@@ -556,14 +529,13 @@ GIFEncoder = function()
 	/**
 	 * retrieves the GIF stream
 	 */
-	var stream = exports.stream = function stream ( )
-	{
+	var stream = exports.stream = function stream() {
 
 		return out;
 
 	};
 
-	var setProperties = exports.setProperties = function setProperties(has_start, is_first){
+	var setProperties = exports.setProperties = function setProperties(has_start, is_first) {
 		started = has_start;
 		firstFrame = is_first;
 	};
