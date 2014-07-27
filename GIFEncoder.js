@@ -44,7 +44,7 @@
 	  }
 
 		var exports = {};
-		var width // image size
+		var width; // image size
 		var height;
 		var transparent = null; // transparent color if given
 		var transIndex; // transparent index in color table
