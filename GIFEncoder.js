@@ -46,7 +46,7 @@
 		var exports = {};
 		var width // image size
 		var height;
-		var transparent/***/ = null; // transparent color if given
+		var transparent = null; // transparent color if given
 		var transIndex; // transparent index in color table
 		var repeat = -1; // no repeat
 		var delay = 0; // frame delay (hundredths)
