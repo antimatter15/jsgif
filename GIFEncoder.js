@@ -295,9 +295,9 @@
 			closeStream = false;
 			out = new ByteArray;
 			try {
-			  out.writeUTFBytes("GIF89a"); // header
-			} catch (e/*Error*/) {
-			  ok = false;
+				out.writeUTFBytes("GIF89a"); // header
+			} catch (e /*Error*/ ) {
+				ok = false;
 			}
 
 			return started = ok;
@@ -326,22 +326,22 @@
 			var len = pixels.length;
 			var nPix = len / 3;
 			indexedPixels = [];
-			var nq/*NeuQuant*/ = new NeuQuant(pixels, len, sample);
+			var nq /*NeuQuant*/ = new NeuQuant(pixels, len, sample);
 			// initialize quantizer
 			colorTab = nq.process(); // create reduced palette
 			// map image pixels to new palette
 			var k = 0;
 			for (var j = 0; j < nPix; j++) {
-			  var index = nq.map(pixels[k++] & 0xff, pixels[k++] & 0xff, pixels[k++] & 0xff);
-			  usedEntry[index] = true;
-			  indexedPixels[j] = index;
+				var index = nq.map(pixels[k++] & 0xff, pixels[k++] & 0xff, pixels[k++] & 0xff);
+				usedEntry[index] = true;
+				indexedPixels[j] = index;
 			}
 			pixels = null;
 			colorDepth = 8;
 			palSize = 7;
 			// get closest match to transparent color if specified
 			if (transparent != null) {
-			  transIndex = findClosest(transparent);
+				transIndex = findClosest(transparent);
 			}
 		}
 
@@ -362,16 +362,16 @@
 			var len = colorTab.length;
 
 			for (var i = 0; i < len;) {
-			  var dr = r - (colorTab[i++] & 0xff);
-			  var dg = g - (colorTab[i++] & 0xff);
-			  var db = b - (colorTab[i] & 0xff);
-			  var d = dr * dr + dg * dg + db * db;
-			  var index = i / 3;
-			  if (usedEntry[index] && (d < dmin)) {
-				dmin = d;
-				minpos = index;
-			  }
-			  i++;
+				var dr = r - (colorTab[i++] & 0xff);
+				var dg = g - (colorTab[i++] & 0xff);
+				var db = b - (colorTab[i] & 0xff);
+				var d = dr * dr + dg * dg + db * db;
+				var index = i / 3;
+				if (usedEntry[index] && (d < dmin)) {
+					dmin = d;
+					minpos = index;
+				}
+				i++;
 			}
 			return minpos;
 
@@ -419,14 +419,14 @@
 			var transp
 			var disp;
 			if (transparent == null) {
-			  transp = 0;
-			  disp = 0; // dispose = no action
+				transp = 0;
+				disp = 0; // dispose = no action
 			} else {
-			  transp = 1;
-			  disp = 2; // force clear if using transparent color
+				transp = 1;
+				disp = 2; // force clear if using transparent color
 			}
 			if (dispose >= 0) {
-			  disp = dispose & 7; // user override
+				disp = dispose & 7; // user override
 			}
 			disp <<= 2;
 			// packed fields
@@ -452,7 +452,7 @@
 			out.writeByte(comment.length); // Block Size (s)
 			out.writeUTFBytes(comment);
 			out.writeByte(0); // block terminator
-			}
+		}
 
 
 		/**
@@ -470,15 +470,15 @@
 
 			// packed fields
 			if (firstFrame) {
-			  // no LCT - GCT is used for first (or only) frame
-			  out.writeByte(0);
+				// no LCT - GCT is used for first (or only) frame
+				out.writeByte(0);
 			} else {
-			  // specify normal LCT
-			  out.writeByte(0x80 | // 1 local color table 1=yes
-				  0 | // 2 interlace - 0=no
-				  0 | // 3 sorted - 0=no
-				  0 | // 4-5 reserved
-				  palSize); // 6-8 size of color table
+				// specify normal LCT
+				out.writeByte(0x80 | // 1 local color table 1=yes
+					0 | // 2 interlace - 0=no
+					0 | // 3 sorted - 0=no
+					0 | // 4-5 reserved
+					palSize); // 6-8 size of color table
 			}
 		}
 
@@ -564,9 +564,9 @@
 		}
 
 		var setProperties = exports.setProperties = function setProperties(has_start, is_first){
-		  started = has_start;
-		  firstFrame = is_first;
-		  //out = new ByteArray; //??
+			started = has_start;
+			firstFrame = is_first;
+			//out = new ByteArray; //??
 		}
 
 		return exports
