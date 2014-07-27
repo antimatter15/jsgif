@@ -416,7 +416,7 @@ GIFEncoder = function()
 		out.writeByte(0x21); // extension introducer
 		out.writeByte(0xf9); // GCE label
 		out.writeByte(4); // data block size
-		var transp
+		var transp;
 		var disp;
 		if (transparent === null) {
 			transp = 0;
