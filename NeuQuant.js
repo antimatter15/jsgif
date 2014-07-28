@@ -163,7 +163,7 @@
 	   * -------------------------------------------------------------------------------
 	   */
 
-	   var inxbuild = function inxbuild()/*void*/
+	   var inxbuild = function inxbuild()
 	   {
 
 		  var i;
@@ -242,7 +242,7 @@
 	   * Main Learning Loop ------------------
 	   */
 
-	   var learn = function learn()/*void*/
+	   var learn = function learn()
 
 	   {
 
@@ -476,7 +476,7 @@
 	  * -----------------------------------------------------------------------------------
 	  */
 
-	  var unbiasnet = function unbiasnet()/*void*/
+	  var unbiasnet = function unbiasnet()
 
 	  {
 
@@ -499,7 +499,7 @@
 	  * ---------------------------------------------------------------------------------
 	  */
 
-	  var alterneigh = function alterneigh(rad, i, b, g, r)/*void*/
+	  var alterneigh = function alterneigh(rad, i, b, g, r)
 
 	  {
 
@@ -571,7 +571,7 @@
 	  * ----------------------------------------------------
 	  */
 
-	  var altersingle = function altersingle(alpha, i, b, g, r)/*void*/
+	  var altersingle = function altersingle(alpha, i, b, g, r)
 	  {
 
 		  /* alter hit neuron */

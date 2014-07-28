@@ -100,7 +100,7 @@ LZWEncoder = function()
 
 	// Add a character to the end of the current packet, and if it is 254
 	// characters, flush the packet to disk.
-	var char_out = function char_out(c/*Number*/, outs)/*void*/
+	var char_out = function char_out(c/*Number*/, outs)
 	{
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
@@ -110,7 +110,7 @@ LZWEncoder = function()
 	// Clear out the hash table
 	// table clear for block compress
 
-	var cl_block = function cl_block(outs)/*void*/
+	var cl_block = function cl_block(outs)
 	{
 
 		cl_hash(hsize);
@@ -121,14 +121,14 @@ LZWEncoder = function()
 	}
 
 	// reset code table
-	var cl_hash = function cl_hash(hsize)/*void*/
+	var cl_hash = function cl_hash(hsize)
 	{
 
 		for (var i = 0; i < hsize; ++i) htab[i] = -1;
 
 	}
 
-	var compress = exports.compress = function compress(init_bits, outs)/*void*/
+	var compress = exports.compress = function compress(init_bits, outs)
 
 	{
 		var fcode;
@@ -210,7 +210,7 @@ LZWEncoder = function()
 	}
 
 	// ----------------------------------------------------------------------------
-	var encode = exports.encode = function encode(os)/*void*/
+	var encode = exports.encode = function encode(os)
 	{
 		os.writeByte(initCodeSize); // write "initial code size" byte
 		remaining = imgW * imgH; // reset navigation variables
@@ -221,7 +221,7 @@ LZWEncoder = function()
 	}
 
 	// Flush the packet to disk, and reset the accumulator
-	var flush_char = function flush_char(outs)/*void*/
+	var flush_char = function flush_char(outs)
 	{
 
 		if (a_count > 0)
@@ -257,7 +257,7 @@ LZWEncoder = function()
 
 	}
 
-	var output = function output(code, outs)/*void*/
+	var output = function output(code, outs)
 
 	{
 		cur_accum &= masks[cur_bits];
