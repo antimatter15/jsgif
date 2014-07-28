@@ -31,16 +31,16 @@
 	NeuQuant = function()
 	{
 	    var exports = {};
-		/*private_static*/ var netsize = 256; /* number of colours used */
+		var netsize = 256; /* number of colours used */
 
 		/* four primes near 500 - assume no image has a length so large */
 		/* that it is divisible by all four primes */
 
-		/*private_static*/ var prime1 = 499;
-		/*private_static*/ var prime2 = 491;
-		/*private_static*/ var prime3 = 487;
-		/*private_static*/ var prime4 = 503;
-		/*private_static*/ var minpicturebytes = (3 * prime4);
+		var prime1 = 499;
+		var prime2 = 491;
+		var prime3 = 487;
+		var prime4 = 503;
+		var minpicturebytes = (3 * prime4);
 
 		/* minimum size for input image */
 		/*
@@ -55,65 +55,65 @@
 		* Network Definitions -------------------
 		*/
 
-		/*private_static*/ var maxnetpos = (netsize - 1);
-		/*private_static*/ var netbiasshift = 4; /* bias for colour values */
-		/*private_static*/ var ncycles = 100; /* no. of learning cycles */
+		var maxnetpos = (netsize - 1);
+		var netbiasshift = 4; /* bias for colour values */
+		var ncycles = 100; /* no. of learning cycles */
 
 		/* defs for freq and bias */
-		/*private_static*/ var intbiasshift = 16; /* bias for fractions */
-		/*private_static*/ var intbias = (1 << intbiasshift);
-		/*private_static*/ var gammashift = 10; /* gamma = 1024 */
-		/*private_static*/ var gamma = (1 << gammashift);
-		/*private_static*/ var betashift = 10;
-		/*private_static*/ var beta = (intbias >> betashift); /* beta = 1/1024 */
-		/*private_static*/ var betagamma = (intbias << (gammashift - betashift));
+		var intbiasshift = 16; /* bias for fractions */
+		var intbias = (1 << intbiasshift);
+		var gammashift = 10; /* gamma = 1024 */
+		var gamma = (1 << gammashift);
+		var betashift = 10;
+		var beta = (intbias >> betashift); /* beta = 1/1024 */
+		var betagamma = (intbias << (gammashift - betashift));
 
 		/* defs for decreasing radius factor */
-		/*private_static*/ var initrad = (netsize >> 3); /*
+		var initrad = (netsize >> 3); /*
 	                                                         * for 256 cols, radius
 	                                                         * starts
 	                                                         */
 
-		/*private_static*/ var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
-		/*private_static*/ var radiusbias = (1 << radiusbiasshift);
-		/*private_static*/ var initradius = (initrad * radiusbias); /*
+		var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
+		var radiusbias = (1 << radiusbiasshift);
+		var initradius = (initrad * radiusbias); /*
 	                                                                   * and
 	                                                                   * decreases
 	                                                                   * by a
 	                                                                   */
 
-		/*private_static*/ var radiusdec = 30; /* factor of 1/30 each cycle */
+		var radiusdec = 30; /* factor of 1/30 each cycle */
 
 		/* defs for decreasing alpha factor */
-		/*private_static*/ var alphabiasshift = 10; /* alpha starts at 1.0 */
-		/*private_static*/ var initalpha = (1 << alphabiasshift);
-		/*private*/ var alphadec /* biased by 10 bits */
+		var alphabiasshift = 10; /* alpha starts at 1.0 */
+		var initalpha = (1 << alphabiasshift);
+		var alphadec /* biased by 10 bits */
 
 		/* radbias and alpharadbias used for radpower calculation */
-		/*private_static*/ var radbiasshift = 8;
-		/*private_static*/ var radbias = (1 << radbiasshift);
-		/*private_static*/ var alpharadbshift = (alphabiasshift + radbiasshift);
+		var radbiasshift = 8;
+		var radbias = (1 << radbiasshift);
+		var alpharadbshift = (alphabiasshift + radbiasshift);
 
-		/*private_static*/ var alpharadbias = (1 << alpharadbshift);
+		var alpharadbias = (1 << alpharadbshift);
 
 		/*
 		* Types and Global Variables --------------------------
 		*/
 
-		/*private*/ var thepicture/*ByteArray*//* the input image itself */
-		/*private*/ var lengthcount; /* lengthcount = H*W*3 */
-		/*private*/ var samplefac; /* sampling factor 1..30 */
+		var thepicture/*ByteArray*//* the input image itself */
+		var lengthcount; /* lengthcount = H*W*3 */
+		var samplefac; /* sampling factor 1..30 */
 
 		// typedef int pixel[4]; /* BGRc */
-		/*private*/ var network/*Array*/; /* the network itself - [netsize][4] */
+		var network/*Array*/; /* the network itself - [netsize][4] */
 		/*protected*/ var netindex/*Array*/ = new Array();
 
 		/* for network lookup - really 256 */
-		/*private*/ var bias/*Array*/ = new Array();
+		var bias/*Array*/ = new Array();
 
 		/* bias and freq arrays for learning */
-		/*private*/ var freq/*Array*/ = new Array();
-		/*private*/ var radpower/*Array*/ = new Array();
+		var freq/*Array*/ = new Array();
+		var radpower/*Array*/ = new Array();
 
 		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic/*ByteArray*/, len, sample)
 		{
