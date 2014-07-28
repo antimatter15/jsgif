@@ -170,7 +170,7 @@ LZWEncoder = function()
 			} else if (htab[i] >= 0) // non-empty slot
 			{
 				disp = hsize_reg - i; // secondary hash (after G. Knott)
-				if (i == 0)
+				if (i === 0)
 					disp = 1;
 				do {
 
@@ -229,7 +229,7 @@ LZWEncoder = function()
 
 	var nextPixel = function nextPixel()
 	{
-		if (remaining == 0) return EOF;
+		if (remaining === 0) return EOF;
 		--remaining;
 		var pix = pixAry[curPixel++];
 		return pix & 0xff;
