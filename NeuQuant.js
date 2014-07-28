@@ -27,8 +27,7 @@
  * @version 0.1 AS3 implementation
  */
 
-NeuQuant = function()
-{
+NeuQuant = function() {
 
 	var exports = {};
 	var netsize = 256; /* number of colours used */
@@ -199,8 +198,7 @@ NeuQuant = function()
 
 			/* smallval entry is now in position i */
 
-			if (smallval != previouscol)
-			{
+			if (smallval != previouscol) {
 
 				netindex[previouscol] = (startpos + i) >> 1;
 
@@ -219,8 +217,7 @@ NeuQuant = function()
 	 * Main Learning Loop ------------------
 	 */
 
-	var learn = function learn()
-	{
+	var learn = function learn() {
 
 		var i;
 		var j;
@@ -268,8 +265,7 @@ NeuQuant = function()
 
 		i = 0;
 
-		while (i < samplepixels)
-		{
+		while (i < samplepixels) {
 
 			b = (p[pix + 0] & 0xff) << netbiasshift;
 			g = (p[pix + 1] & 0xff) << netbiasshift;
@@ -286,8 +282,7 @@ NeuQuant = function()
 
 			if (delta == 0) delta = 1;
 
-			if (i % delta == 0)
-			{
+			if (i % delta == 0) {
 				alpha -= alpha / alphadec;
 				radius -= radius / radiusdec;
 				rad = radius >> radiusbiasshift;
@@ -305,8 +300,7 @@ NeuQuant = function()
 	 * ----------------------------------------------------------------------------
 	 */
 
-	var map = exports.map = function map(b, g, r)
-	{
+	var map = exports.map = function map(b, g, r) {
 
 		var i;
 		var j;
@@ -321,11 +315,9 @@ NeuQuant = function()
 		i = netindex[g]; /* index on g */
 		j = i - 1; /* start at netindex[g] and work outwards */
 
-		while ((i < netsize) || (j >= 0))
-		{
+		while ((i < netsize) || (j >= 0)) {
 
-			if (i < netsize)
-			{
+			if (i < netsize) {
 				p = network[i];
 				dist = p[1] - g; /* inx key */
 
@@ -339,14 +331,12 @@ NeuQuant = function()
 					if (a < 0) a = -a;
 					dist += a;
 
-					if (dist < bestd)
-					{
+					if (dist < bestd) {
 						a = p[2] - r;
 						if (a < 0) a = -a;
 						dist += a;
 
-						if (dist < bestd)
-						{
+						if (dist < bestd) {
 							bestd = dist;
 							best = p[3];
 						}
@@ -369,8 +359,7 @@ NeuQuant = function()
 					if (a < 0) a = -a;
 					dist += a;
 
-					if (dist < bestd)
-					{
+					if (dist < bestd) {
 						a = p[2] - r;
 						if (a < 0) a = -a;
 						dist += a;
@@ -399,8 +388,7 @@ NeuQuant = function()
 	 * -----------------------------------------------------------------------------------
 	 */
 
-	var unbiasnet = function unbiasnet()
-	{
+	var unbiasnet = function unbiasnet() {
 		var i;
 		var j;
 
@@ -418,8 +406,7 @@ NeuQuant = function()
 	 * ---------------------------------------------------------------------------------
 	 */
 
-	var alterneigh = function alterneigh(rad, i, b, g, r)
-	{
+	var alterneigh = function alterneigh(rad, i, b, g, r) {
 		var j;
 		var k;
 		var lo;
@@ -438,12 +425,10 @@ NeuQuant = function()
 		k = i - 1;
 		m = 1;
 
-		while ((j < hi) || (k > lo))
-		{
+		while ((j < hi) || (k > lo)) {
 			a = radpower[m++];
 
-			if (j < hi)
-			{
+			if (j < hi) {
 				p = network[j++];
 
 				try {
@@ -453,8 +438,7 @@ NeuQuant = function()
 				} catch (e) {} // prevents 1.3 miscompilation
 			}
 
-			if (k > lo)
-			{
+			if (k > lo) {
 				p = network[k--];
 
 				try {
@@ -507,8 +491,7 @@ NeuQuant = function()
 		bestpos = -1;
 		bestbiaspos = bestpos;
 
-		for (i = 0; i < netsize; i++)
-		{
+		for (i = 0; i < netsize; i++) {
 			n = network[i];
 			dist = n[0] - b;
 			if (dist < 0) dist = -dist;
@@ -519,16 +502,14 @@ NeuQuant = function()
 			if (a < 0) a = -a;
 			dist += a;
 
-			if (dist < bestd)
-			{
+			if (dist < bestd) {
 				bestd = dist;
 				bestpos = i;
 			}
 
 			biasdist = dist - ((bias[i]) >> (intbiasshift - netbiasshift));
 
-			if (biasdist < bestbiasd)
-			{
+			if (biasdist < bestbiasd) {
 				bestbiasd = biasdist;
 				bestbiaspos = i;
 			}
