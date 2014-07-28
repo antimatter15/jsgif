@@ -6,8 +6,6 @@
 * @version 0.1 AS3 implementation
 */
 
-	//import flash.utils.ByteArray;
-
 	LZWEncoder = function()
 	{
 	    var exports = {};
