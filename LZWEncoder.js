@@ -9,21 +9,21 @@
 LZWEncoder = function()
 {
     var exports = {};
-	/*private_static*/ var EOF/*int*/ = -1;
-	/*private*/ var imgW/*int*/;
-	/*private*/ var imgH/*int*/
-	/*private*/ var pixAry/*ByteArray*/;
-	/*private*/ var initCodeSize/*int*/;
-	/*private*/ var remaining/*int*/;
-	/*private*/ var curPixel/*int*/;
+	var EOF/*int*/ = -1;
+	var imgW/*int*/;
+	var imgH/*int*/
+	var pixAry/*ByteArray*/;
+	var initCodeSize/*int*/;
+	var remaining/*int*/;
+	var curPixel/*int*/;
 
 	// GIFCOMPR.C - GIF Image compression routines
 	// Lempel-Ziv compression based on 'compress'. GIF modifications by
 	// David Rowley (mgardi@watdcsu.waterloo.edu)
 	// General DEFINEs
 
-	/*private_static*/ var BITS/*int*/ = 12;
-	/*private_static*/ var HSIZE/*int*/ = 5003; // 80% occupancy
+	var BITS/*int*/ = 12;
+	var HSIZE/*int*/ = 5003; // 80% occupancy
 
 	// GIF Image compression - modified 'compress'
 	// Based on: compress.c - File compression ala IEEE Computer, June 1984.
@@ -34,19 +34,19 @@ LZWEncoder = function()
 	// James A. Woods (decvax!ihnp4!ames!jaw)
 	// Joe Orost (decvax!vax135!petsd!joe)
 
-	/*private*/ var n_bits/*int*/ // number of bits/code
-	/*private*/ var maxbits/*int*/ = BITS; // user settable max # bits/code
-	/*private*/ var maxcode/*int*/ // maximum code, given n_bits
-	/*private*/ var maxmaxcode/*int*/ = 1 << BITS; // should NEVER generate this code
-	/*private*/ var htab/*Array*/ = new Array;
-	/*private*/ var codetab/*Array*/ = new Array;
-	/*private*/ var hsize/*int*/ = HSIZE; // for dynamic table sizing
-	/*private*/ var free_ent/*int*/ = 0; // first unused entry
+	var n_bits/*int*/ // number of bits/code
+	var maxbits/*int*/ = BITS; // user settable max # bits/code
+	var maxcode/*int*/ // maximum code, given n_bits
+	var maxmaxcode/*int*/ = 1 << BITS; // should NEVER generate this code
+	var htab/*Array*/ = new Array;
+	var codetab/*Array*/ = new Array;
+	var hsize/*int*/ = HSIZE; // for dynamic table sizing
+	var free_ent/*int*/ = 0; // first unused entry
 
 	// block compression parameters -- after all codes are used up,
 	// and compression rate changes, start over.
 
-	/*private*/ var clear_flg/*Boolean*/ = false;
+	var clear_flg/*Boolean*/ = false;
 
 	// Algorithm: use open addressing double hashing (no chaining) on the
 	// prefix code / next character combination. We do a variant of Knuth's
@@ -60,9 +60,9 @@ LZWEncoder = function()
 	// file size for noticeable speed improvement on small files. Please direct
 	// questions about this implementation to ames!jaw.
 
-	/*private*/ var g_init_bits/*int*/;
-	/*private*/ var ClearCode/*int*/;
-	/*private*/ var EOFCode/*int*/;
+	var g_init_bits/*int*/;
+	var ClearCode/*int*/;
+	var EOFCode/*int*/;
 
 	// output
 	// Output the given code.
@@ -78,15 +78,15 @@ LZWEncoder = function()
 	// fit in it exactly). Use the VAX insv instruction to insert each
 	// code in turn. When the buffer fills up empty it and start over.
 
-	/*private*/ var cur_accum/*int*/ = 0;
-	/*private*/ var cur_bits/*int*/ = 0;
-	/*private*/ var masks/*Array*/ = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
+	var cur_accum/*int*/ = 0;
+	var cur_bits/*int*/ = 0;
+	var masks/*Array*/ = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
 
 	// Number of characters so far in this 'packet'
-	/*private*/ var a_count/*int*/;
+	var a_count/*int*/;
 
 	// Define the storage for the packet accumulator
-	/*private*/ var accum/*ByteArray*/ = [];
+	var accum/*ByteArray*/ = [];
 
 	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width/*int*/, height/*int*/, pixels/*ByteArray*/, color_depth/*int*/)
 	{
