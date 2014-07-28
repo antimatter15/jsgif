@@ -29,6 +29,7 @@
 
 NeuQuant = function()
 {
+
 	var exports = {};
 	var netsize = 256; /* number of colours used */
 
@@ -68,11 +69,9 @@ NeuQuant = function()
 
 	/* defs for decreasing radius factor */
 	var initrad = (netsize >> 3); /* for 256 cols, radius starts */
-
 	var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
 	var radiusbias = (1 << radiusbiasshift);
 	var initradius = (initrad * radiusbias); /* and decreases by a */
-
 	var radiusdec = 30; /* factor of 1/30 each cycle */
 
 	/* defs for decreasing alpha factor */
@@ -84,7 +83,6 @@ NeuQuant = function()
 	var radbiasshift = 8;
 	var radbias = (1 << radbiasshift);
 	var alpharadbshift = (alphabiasshift + radbiasshift);
-
 	var alpharadbias = (1 << alpharadbshift);
 
 	/*
@@ -336,19 +334,15 @@ NeuQuant = function()
 				else {
 
 					i++;
-
 					if (dist < 0) dist = -dist;
-
 					a = p[0] - b;
 					if (a < 0) a = -a;
-
 					dist += a;
 
 					if (dist < bestd)
 					{
 						a = p[2] - r;
 						if (a < 0) a = -a;
-
 						dist += a;
 
 						if (dist < bestd)
@@ -517,19 +511,12 @@ NeuQuant = function()
 		{
 			n = network[i];
 			dist = n[0] - b;
-
 			if (dist < 0) dist = -dist;
-
 			a = n[1] - g;
-
 			if (a < 0) a = -a;
-
 			dist += a;
-
 			a = n[2] - r;
-
 			if (a < 0) a = -a;
-
 			dist += a;
 
 			if (dist < bestd)
