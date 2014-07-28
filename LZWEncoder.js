@@ -9,7 +9,7 @@
 
 LZWEncoder = function()
 {
-    var exports = {};
+	var exports = {};
 	var EOF = -1;
 	var imgW;
 	var imgH

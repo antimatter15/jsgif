@@ -31,7 +31,7 @@
 
 NeuQuant = function()
 {
-    var exports = {};
+	var exports = {};
 	var netsize = 256; /* number of colours used */
 
 	/* four primes near 500 - assume no image has a length so large */
@@ -71,17 +71,17 @@ NeuQuant = function()
 
 	/* defs for decreasing radius factor */
 	var initrad = (netsize >> 3); /*
-                                                         * for 256 cols, radius
-                                                         * starts
-                                                         */
+								  * for 256 cols, radius
+								  * starts
+								  */
 
 	var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
 	var radiusbias = (1 << radiusbiasshift);
 	var initradius = (initrad * radiusbias); /*
-                                                                   * and
-                                                                   * decreases
-                                                                   * by a
-                                                                   */
+																   * and
+																   * decreases
+																   * by a
+																   */
 
 	var radiusdec = 30; /* factor of 1/30 each cycle */
 
