@@ -70,18 +70,11 @@ NeuQuant = function()
 	var betagamma = (intbias << (gammashift - betashift));
 
 	/* defs for decreasing radius factor */
-	var initrad = (netsize >> 3); /*
-								  * for 256 cols, radius
-								  * starts
-								  */
+	var initrad = (netsize >> 3); /* for 256 cols, radius starts */
 
 	var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
 	var radiusbias = (1 << radiusbiasshift);
-	var initradius = (initrad * radiusbias); /*
-																   * and
-																   * decreases
-																   * by a
-																   */
+	var initradius = (initrad * radiusbias); /* and decreases by a */
 
 	var radiusdec = 30; /* factor of 1/30 each cycle */
 
