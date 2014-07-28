@@ -94,14 +94,14 @@ NeuQuant = function() {
 
 	// typedef int pixel[4]; /* BGRc */
 	var network; /* the network itself - [netsize][4] */
-	var netindex = new Array();
+	var netindex = [];
 
 	/* for network lookup - really 256 */
-	var bias = new Array();
+	var bias = [];
 
 	/* bias and freq arrays for learning */
-	var freq = new Array();
-	var radpower = new Array();
+	var freq = [];
+	var radpower = [];
 
 	var NeuQuant = exports.NeuQuant = function NeuQuant(thepic, len, sample) {
 
