@@ -8,6 +8,7 @@
  */
 
 LZWEncoder = function() {
+
 	var exports = {};
 	var EOF = -1;
 	var imgW;
@@ -118,6 +119,7 @@ LZWEncoder = function() {
 	};
 
 	var compress = exports.compress = function compress(init_bits, outs) {
+
 		var fcode;
 		var i; /* = 0 */
 		var c;
@@ -153,7 +155,6 @@ LZWEncoder = function() {
 		output(ClearCode, outs);
 
 		outer_loop: while ((c = nextPixel()) != EOF)
-
 		{
 			fcode = (c << maxbits) + ent;
 			i = (c << hshift) ^ ent; // xor hashing
@@ -201,7 +202,6 @@ LZWEncoder = function() {
 
 	// Flush the packet to disk, and reset the accumulator
 	var flush_char = function flush_char(outs) {
-
 		if (a_count > 0) {
 			outs.writeByte(a_count);
 			outs.writeBytes(accum, 0, a_count);
@@ -225,7 +225,6 @@ LZWEncoder = function() {
 	};
 
 	var output = function output(code, outs)
-
 	{
 		cur_accum &= masks[cur_bits];
 
@@ -235,7 +234,6 @@ LZWEncoder = function() {
 		cur_bits += n_bits;
 
 		while (cur_bits >= 8)
-
 		{
 			char_out((cur_accum & 0xff), outs);
 			cur_accum >>= 8;
