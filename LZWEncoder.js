@@ -39,8 +39,8 @@ LZWEncoder = function()
 	var maxbits = BITS; // user settable max # bits/code
 	var maxcode; // maximum code, given n_bits
 	var maxmaxcode = 1 << BITS; // should NEVER generate this code
-	var htab = new Array;
-	var codetab = new Array;
+	var htab = [];
+	var codetab = [];
 	var hsize = HSIZE; // for dynamic table sizing
 	var free_ent = 0; // first unused entry
 
