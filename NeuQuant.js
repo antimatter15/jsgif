@@ -263,7 +263,6 @@ NeuQuant = function() {
 		}
 
 		i = 0;
-
 		while (i < samplepixels) {
 
 			b = (p[pix + 0] & 0xff) << netbiasshift;

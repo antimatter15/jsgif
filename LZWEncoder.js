@@ -161,14 +161,16 @@ LZWEncoder = function() {
 			if (htab[i] == fcode) {
 				ent = codetab[i];
 				continue;
-			} else if (htab[i] >= 0) // non-empty slot
-			{
-				disp = hsize_reg - i; // secondary hash (after G. Knott)
-				if (i === 0)
-					disp = 1;
-				do {
+			}
 
-					if ((i -= disp) < 0) i += hsize_reg;
+			else if (htab[i] >= 0) { // non-empty slot
+
+				disp = hsize_reg - i; // secondary hash (after G. Knott)
+				if (i === 0) disp = 1;
+
+				do {
+					if ((i -= disp) < 0)
+						i += hsize_reg;
 
 					if (htab[i] == fcode) {
 						ent = codetab[i];
@@ -182,7 +184,8 @@ LZWEncoder = function() {
 			if (free_ent < maxmaxcode) {
 				codetab[i] = free_ent++; // code -> hashtable
 				htab[i] = fcode;
-			} else cl_block(outs);
+			}
+			else cl_block(outs);
 		}
 
 		// Put out the final code.
@@ -224,6 +227,7 @@ LZWEncoder = function() {
 	};
 
 	var output = function output(code, outs) {
+
 		cur_accum &= masks[cur_bits];
 
 		if (cur_bits > 0) cur_accum |= (code << cur_bits);
