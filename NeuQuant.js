@@ -107,7 +107,7 @@ NeuQuant = function()
 
 	// typedef int pixel[4]; /* BGRc */
 	var network; /* the network itself - [netsize][4] */
-	/*protected*/ var netindex = new Array();
+	var netindex = new Array();
 
 	/* for network lookup - really 256 */
 	var bias = new Array();
