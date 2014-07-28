@@ -41,9 +41,8 @@ NeuQuant = function()
 	var prime2 = 491;
 	var prime3 = 487;
 	var prime4 = 503;
-	var minpicturebytes = (3 * prime4);
+	var minpicturebytes = (3 * prime4); /* minimum size for input image */
 
-	/* minimum size for input image */
 	/*
 	 * Program Skeleton ---------------- [select samplefac in range 1..30] [read
 	 * image from input file] pic = (unsigned char*) malloc(3*width*height);
@@ -282,11 +281,9 @@ NeuQuant = function()
 			j = contest(b, g, r);
 
 			altersingle(alpha, j, b, g, r);
-
 			if (rad != 0) alterneigh(rad, j, b, g, r); /* alter neighbours */
 
 			pix += step;
-
 			if (pix >= lim) pix -= lengthcount;
 
 			i++;
@@ -345,7 +342,6 @@ NeuQuant = function()
 					if (dist < 0) dist = -dist;
 
 					a = p[0] - b;
-
 					if (a < 0) a = -a;
 
 					dist += a;
@@ -353,7 +349,6 @@ NeuQuant = function()
 					if (dist < bestd)
 					{
 						a = p[2] - r;
-
 						if (a < 0) a = -a;
 
 						dist += a;
@@ -445,7 +440,6 @@ NeuQuant = function()
 		if (lo < -1) lo = -1;
 
 		hi = i + rad;
-
 		if (hi > netsize) hi = netsize;
 
 		j = i + 1;
