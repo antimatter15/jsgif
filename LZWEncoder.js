@@ -46,7 +46,7 @@ LZWEncoder = function()
 	// block compression parameters -- after all codes are used up,
 	// and compression rate changes, start over.
 
-	var clear_flg/*Boolean*/ = false;
+	var clear_flg = false;
 
 	// Algorithm: use open addressing double hashing (no chaining) on the
 	// prefix code / next character combination. We do a variant of Knuth's
