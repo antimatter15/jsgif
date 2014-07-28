@@ -154,8 +154,7 @@ LZWEncoder = function() {
 
 		output(ClearCode, outs);
 
-		outer_loop: while ((c = nextPixel()) != EOF)
-		{
+		outer_loop: while ((c = nextPixel()) != EOF) {
 			fcode = (c << maxbits) + ent;
 			i = (c << hshift) ^ ent; // xor hashing
 
@@ -224,8 +223,7 @@ LZWEncoder = function() {
 		return pix & 0xff;
 	};
 
-	var output = function output(code, outs)
-	{
+	var output = function output(code, outs) {
 		cur_accum &= masks[cur_bits];
 
 		if (cur_bits > 0) cur_accum |= (code << cur_bits);
@@ -233,8 +231,7 @@ LZWEncoder = function() {
 
 		cur_bits += n_bits;
 
-		while (cur_bits >= 8)
-		{
+		while (cur_bits >= 8) {
 			char_out((cur_accum & 0xff), outs);
 			cur_accum >>= 8;
 			cur_bits -= 8;
