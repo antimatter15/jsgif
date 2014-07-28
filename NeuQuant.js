@@ -251,13 +251,13 @@ NeuQuant = function() {
 
 		if (lengthcount < minpicturebytes) step = 3;
 
-		else if ((lengthcount % prime1) != 0) step = 3 * prime1;
+		else if ((lengthcount % prime1) !== 0) step = 3 * prime1;
 
 		else {
 
-			if ((lengthcount % prime2) != 0) step = 3 * prime2;
+			if ((lengthcount % prime2) !== 0) step = 3 * prime2;
 			else {
-				if ((lengthcount % prime3) != 0) step = 3 * prime3;
+				if ((lengthcount % prime3) !== 0) step = 3 * prime3;
 				else step = 3 * prime4;
 			}
 		}
@@ -272,16 +272,16 @@ NeuQuant = function() {
 			j = contest(b, g, r);
 
 			altersingle(alpha, j, b, g, r);
-			if (rad != 0) alterneigh(rad, j, b, g, r); /* alter neighbours */
+			if (rad !== 0) alterneigh(rad, j, b, g, r); /* alter neighbours */
 
 			pix += step;
 			if (pix >= lim) pix -= lengthcount;
 
 			i++;
 
-			if (delta == 0) delta = 1;
+			if (delta === 0) delta = 1;
 
-			if (i % delta == 0) {
+			if (i % delta === 0) {
 				alpha -= alpha / alphadec;
 				radius -= radius / radiusdec;
 				rad = radius >> radiusbiasshift;
