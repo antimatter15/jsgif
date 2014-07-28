@@ -7,8 +7,7 @@
  * @version 0.1 AS3 implementation
  */
 
-LZWEncoder = function()
-{
+LZWEncoder = function() {
 	var exports = {};
 	var EOF = -1;
 	var imgW;
@@ -81,7 +80,7 @@ LZWEncoder = function()
 
 	var cur_accum = 0;
 	var cur_bits = 0;
-	var masks = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
+	var masks = [0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF];
 
 	// Number of characters so far in this 'packet'
 	var a_count;
@@ -89,8 +88,7 @@ LZWEncoder = function()
 	// Define the storage for the packet accumulator
 	var accum = [];
 
-	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width, height, pixels, color_depth)
-	{
+	var LZWEncoder = exports.LZWEncoder = function LZWEncoder(width, height, pixels, color_depth) {
 		imgW = width;
 		imgH = height;
 		pixAry = pixels;
@@ -99,8 +97,7 @@ LZWEncoder = function()
 
 	// Add a character to the end of the current packet, and if it is 254
 	// characters, flush the packet to disk.
-	var char_out = function char_out(c, outs)
-	{
+	var char_out = function char_out(c, outs) {
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
 	};
@@ -108,8 +105,7 @@ LZWEncoder = function()
 	// Clear out the hash table
 	// table clear for block compress
 
-	var cl_block = function cl_block(outs)
-	{
+	var cl_block = function cl_block(outs) {
 		cl_hash(hsize);
 		free_ent = ClearCode + 2;
 		clear_flg = true;
@@ -117,15 +113,13 @@ LZWEncoder = function()
 	};
 
 	// reset code table
-	var cl_hash = function cl_hash(hsize)
-	{
+	var cl_hash = function cl_hash(hsize) {
 		for (var i = 0; i < hsize; ++i) htab[i] = -1;
 	};
 
-	var compress = exports.compress = function compress(init_bits, outs)
-	{
+	var compress = exports.compress = function compress(init_bits, outs) {
 		var fcode;
-		var i /* = 0 */;
+		var i /* = 0 */ ;
 		var c;
 		var ent;
 		var disp;
@@ -197,8 +191,7 @@ LZWEncoder = function()
 	};
 
 	// ----------------------------------------------------------------------------
-	var encode = exports.encode = function encode(os)
-	{
+	var encode = exports.encode = function encode(os) {
 		os.writeByte(initCodeSize); // write "initial code size" byte
 		remaining = imgW * imgH; // reset navigation variables
 		curPixel = 0;
@@ -207,19 +200,16 @@ LZWEncoder = function()
 	};
 
 	// Flush the packet to disk, and reset the accumulator
-	var flush_char = function flush_char(outs)
-	{
+	var flush_char = function flush_char(outs) {
 
-		if (a_count > 0)
-		{
+		if (a_count > 0) {
 			outs.writeByte(a_count);
 			outs.writeBytes(accum, 0, a_count);
 			a_count = 0;
 		}
 	};
 
-	var MAXCODE = function MAXCODE(n_bits)
-	{
+	var MAXCODE = function MAXCODE(n_bits) {
 		return (1 << n_bits) - 1;
 	};
 
@@ -227,8 +217,7 @@ LZWEncoder = function()
 	// Return the next pixel from the image
 	// ----------------------------------------------------------------------------
 
-	var nextPixel = function nextPixel()
-	{
+	var nextPixel = function nextPixel() {
 		if (remaining === 0) return EOF;
 		--remaining;
 		var pix = pixAry[curPixel++];
@@ -271,12 +260,10 @@ LZWEncoder = function()
 			}
 		}
 
-		if (code == EOFCode)
-		{
+		if (code == EOFCode) {
 
 			// At EOF, write the rest of the buffer.
-			while (cur_bits > 0)
-			{
+			while (cur_bits > 0) {
 				char_out((cur_accum & 0xff), outs);
 				cur_accum >>= 8;
 				cur_bits -= 8;
