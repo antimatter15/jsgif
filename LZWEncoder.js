@@ -12,7 +12,7 @@ LZWEncoder = function()
 	var EOF = -1;
 	var imgW;
 	var imgH
-	var pixAry/*ByteArray*/;
+	var pixAry;
 	var initCodeSize;
 	var remaining;
 	var curPixel;
@@ -86,9 +86,9 @@ LZWEncoder = function()
 	var a_count;
 
 	// Define the storage for the packet accumulator
-	var accum/*ByteArray*/ = [];
+	var accum = [];
 
-	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width, height, pixels/*ByteArray*/, color_depth)
+	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width, height, pixels, color_depth)
 	{
 
 		imgW = width;
@@ -100,7 +100,7 @@ LZWEncoder = function()
 
 	// Add a character to the end of the current packet, and if it is 254
 	// characters, flush the packet to disk.
-	var char_out = function char_out(c/*Number*/, outs/*ByteArray*/)/*void*/
+	var char_out = function char_out(c/*Number*/, outs)/*void*/
 	{
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
@@ -110,7 +110,7 @@ LZWEncoder = function()
 	// Clear out the hash table
 	// table clear for block compress
 
-	var cl_block = function cl_block(outs/*ByteArray*/)/*void*/
+	var cl_block = function cl_block(outs)/*void*/
 	{
 
 		cl_hash(hsize);
@@ -128,7 +128,7 @@ LZWEncoder = function()
 
 	}
 
-	var compress = exports.compress = function compress(init_bits, outs/*ByteArray*/)/*void*/
+	var compress = exports.compress = function compress(init_bits, outs)/*void*/
 
 	{
 		var fcode;
@@ -210,7 +210,7 @@ LZWEncoder = function()
 	}
 
 	// ----------------------------------------------------------------------------
-	var encode = exports.encode = function encode(os/*ByteArray*/)/*void*/
+	var encode = exports.encode = function encode(os)/*void*/
 	{
 		os.writeByte(initCodeSize); // write "initial code size" byte
 		remaining = imgW * imgH; // reset navigation variables
@@ -221,7 +221,7 @@ LZWEncoder = function()
 	}
 
 	// Flush the packet to disk, and reset the accumulator
-	var flush_char = function flush_char(outs/*ByteArray*/)/*void*/
+	var flush_char = function flush_char(outs)/*void*/
 	{
 
 		if (a_count > 0)
@@ -257,7 +257,7 @@ LZWEncoder = function()
 
 	}
 
-	var output = function output(code, outs/*ByteArray*/)/*void*/
+	var output = function output(code, outs)/*void*/
 
 	{
 		cur_accum &= masks[cur_bits];

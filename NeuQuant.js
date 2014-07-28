@@ -100,7 +100,7 @@
 		* Types and Global Variables --------------------------
 		*/
 
-		var thepicture/*ByteArray*//* the input image itself */
+		var thepicture/* the input image itself */
 		var lengthcount; /* lengthcount = H*W*3 */
 		var samplefac; /* sampling factor 1..30 */
 
@@ -115,7 +115,7 @@
 		var freq/*Array*/ = new Array();
 		var radpower/*Array*/ = new Array();
 
-		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic/*ByteArray*/, len, sample)
+		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic, len, sample)
 		{
 
 			var i;
@@ -139,10 +139,10 @@
 
 		}
 
-		var colorMap = function colorMap()/*ByteArray*/
+		var colorMap = function colorMap()
 		{
 
-			var map/*ByteArray*/ = [];
+			var map = [];
 		    var index/*Array*/ = new Array(netsize);
 		    for (var i = 0; i < netsize; i++)
 		      index[network[i][3]] = i;
@@ -257,7 +257,7 @@
 		   var step;
 		   var delta;
 		   var samplepixels;
-		   var p/*ByteArray*/;
+		   var p;
 		   var pix;
 		   var lim;
 
@@ -460,7 +460,7 @@
 
 	  }
 
-	  var process = exports.process = function process()/*ByteArray*/
+	  var process = exports.process = function process()
 	  {
 
 	    learn();
