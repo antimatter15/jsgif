@@ -1,30 +1,30 @@
 /*
-* NeuQuant Neural-Net Quantization Algorithm
-* ------------------------------------------
-*
-* Copyright (c) 1994 Anthony Dekker
-*
-* NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
-* "Kohonen neural networks for optimal colour quantization" in "Network:
-* Computation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
-* the algorithm.
-*
-* Any party obtaining a copy of these files from the author, directly or
-* indirectly, is granted, free of charge, a full and unrestricted irrevocable,
-* world-wide, paid up, royalty-free, nonexclusive right and license to deal in
-* this software and documentation files (the "Software"), including without
-* limitation the rights to use, copy, modify, merge, publish, distribute,
-* sublicense, and/or sell copies of the Software, and to permit persons who
-* receive copies from any such party to do so, with the only requirement being
-* that this copyright notice remain intact.
-*/
+ * NeuQuant Neural-Net Quantization Algorithm
+ * ------------------------------------------
+ *
+ * Copyright (c) 1994 Anthony Dekker
+ *
+ * NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
+ * "Kohonen neural networks for optimal colour quantization" in "Network:
+ * Computation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
+ * the algorithm.
+ *
+ * Any party obtaining a copy of these files from the author, directly or
+ * indirectly, is granted, free of charge, a full and unrestricted irrevocable,
+ * world-wide, paid up, royalty-free, nonexclusive right and license to deal in
+ * this software and documentation files (the "Software"), including without
+ * limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons who
+ * receive copies from any such party to do so, with the only requirement being
+ * that this copyright notice remain intact.
+ */
 
 /*
-* This class handles Neural-Net quantization algorithm
-* @author Kevin Weiner (original Java version - kweiner@fmsware.com)
-* @author Thibault Imbert (AS3 version - bytearray.org)
-* @version 0.1 AS3 implementation
-*/
+ * This class handles Neural-Net quantization algorithm
+ * @author Kevin Weiner (original Java version - kweiner@fmsware.com)
+ * @author Thibault Imbert (AS3 version - bytearray.org)
+ * @version 0.1 AS3 implementation
+ */
 
 //import flash.utils.ByteArray;
 
@@ -44,16 +44,16 @@ NeuQuant = function()
 
 	/* minimum size for input image */
 	/*
-	* Program Skeleton ---------------- [select samplefac in range 1..30] [read
-	* image from input file] pic = (unsigned char*) malloc(3*width*height);
-	* initnet(pic,3*width*height,samplefac); learn(); unbiasnet(); [write output
-	* image header, using writecolourmap(f)] inxbuild(); write output image using
-	* inxsearch(b,g,r)
-	*/
+	 * Program Skeleton ---------------- [select samplefac in range 1..30] [read
+	 * image from input file] pic = (unsigned char*) malloc(3*width*height);
+	 * initnet(pic,3*width*height,samplefac); learn(); unbiasnet(); [write output
+	 * image header, using writecolourmap(f)] inxbuild(); write output image using
+	 * inxsearch(b,g,r)
+	 */
 
 	/*
-	* Network Definitions -------------------
-	*/
+	 * Network Definitions -------------------
+	 */
 
 	var maxnetpos = (netsize - 1);
 	var netbiasshift = 4; /* bias for colour values */
@@ -97,8 +97,8 @@ NeuQuant = function()
 	var alpharadbias = (1 << alpharadbshift);
 
 	/*
-	* Types and Global Variables --------------------------
-	*/
+	 * Types and Global Variables --------------------------
+	 */
 
 	var thepicture/* the input image itself */
 	var lengthcount; /* lengthcount = H*W*3 */
@@ -158,10 +158,10 @@ NeuQuant = function()
 	}
 
 	/*
-   * Insertion sort of network and building of netindex[0..255] (to do after
-   * unbias)
-   * -------------------------------------------------------------------------------
-   */
+	 * Insertion sort of network and building of netindex[0..255] (to do after
+	 * unbias)
+	 * -------------------------------------------------------------------------------
+	 */
 
    var inxbuild = function inxbuild()
    {
@@ -238,9 +238,9 @@ NeuQuant = function()
 
    }
 
-   /*
-   * Main Learning Loop ------------------
-   */
+	/*
+	 * Main Learning Loop ------------------
+	 */
 
    var learn = function learn()
 
@@ -341,11 +341,11 @@ NeuQuant = function()
 
    }
 
-   /*
-   ** Search for BGR values 0..255 (after net is unbiased) and return colour
-   * index
-   * ----------------------------------------------------------------------------
-   */
+	/*
+	 ** Search for BGR values 0..255 (after net is unbiased) and return colour
+	 * index
+	 * ----------------------------------------------------------------------------
+	 */
 
    var map = exports.map = function map(b, g, r)
 
@@ -470,11 +470,11 @@ NeuQuant = function()
 
   }
 
-  /*
-  * Unbias network to give byte values 0..255 and record position i to prepare
-  * for sort
-  * -----------------------------------------------------------------------------------
-  */
+	/*
+	 * Unbias network to give byte values 0..255 and record position i to prepare
+	 * for sort
+	 * -----------------------------------------------------------------------------------
+	 */
 
   var unbiasnet = function unbiasnet()
 
@@ -493,11 +493,11 @@ NeuQuant = function()
 
   }
 
-  /*
-  * Move adjacent neurons by precomputed alpha*(1-((i-j)^2/[r]^2)) in
-  * radpower[|i-j|]
-  * ---------------------------------------------------------------------------------
-  */
+	/*
+	 * Move adjacent neurons by precomputed alpha*(1-((i-j)^2/[r]^2)) in
+	 * radpower[|i-j|]
+	 * ---------------------------------------------------------------------------------
+	 */
 
   var alterneigh = function alterneigh(rad, i, b, g, r)
 
@@ -566,10 +566,10 @@ NeuQuant = function()
 
   }
 
-  /*
-  * Move neuron i towards biased (b,g,r) by factor alpha
-  * ----------------------------------------------------
-  */
+	/*
+	 * Move neuron i towards biased (b,g,r) by factor alpha
+	 * ----------------------------------------------------
+	 */
 
   var altersingle = function altersingle(alpha, i, b, g, r)
   {
@@ -582,9 +582,9 @@ NeuQuant = function()
 
   }
 
-  /*
-  * Search for biased BGR values ----------------------------
-  */
+	/*
+	 * Search for biased BGR values ----------------------------
+	 */
 
   var contest = function contest(b, g, r)
   {
