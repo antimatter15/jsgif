@@ -135,15 +135,16 @@ NeuQuant = function()
 			freq[i] = intbias / netsize; /* 1/netsize */
 			bias[i] = 0;
 		}
-
 	}
 
 	var colorMap = function colorMap() {
 
 		var map = [];
 		var index = new Array(netsize);
+
 		for (var i = 0; i < netsize; i++)
 			index[network[i][3]] = i;
+
 		var k = 0;
 		for (var l = 0; l < netsize; l++) {
 			var j = index[l];
@@ -151,8 +152,8 @@ NeuQuant = function()
 			map[k++] = (network[j][1]);
 			map[k++] = (network[j][2]);
 		}
-		return map;
 
+		return map;
 	}
 
 	/*
@@ -206,13 +207,11 @@ NeuQuant = function()
 				j = q[3];
 				q[3] = p[3];
 				p[3] = j;
-
 			}
 
 			/* smallval entry is now in position i */
 
 			if (smallval != previouscol)
-
 			{
 
 				netindex[previouscol] = (startpos + i) >> 1;
@@ -221,14 +220,11 @@ NeuQuant = function()
 
 				previouscol = smallval;
 				startpos = i;
-
 			}
-
 		}
 
 		netindex[previouscol] = (startpos + maxnetpos) >> 1;
 		for (j = previouscol + 1; j < 256; j++) netindex[j] = maxnetpos; /* really 256 */
-
 	}
 
 	/*
@@ -236,7 +232,6 @@ NeuQuant = function()
 	 */
 
 	var learn = function learn()
-
 	{
 
 		var i;
@@ -270,33 +265,22 @@ NeuQuant = function()
 
 		for (i = 0; i < rad; i++) radpower[i] = alpha * (((rad * rad - i * i) * radbias) / (rad * rad));
 
-
 		if (lengthcount < minpicturebytes) step = 3;
 
 		else if ((lengthcount % prime1) != 0) step = 3 * prime1;
 
-		else
-
-		{
+		else {
 
 			if ((lengthcount % prime2) != 0) step = 3 * prime2;
-
-			else
-
-			{
-
+			else {
 				if ((lengthcount % prime3) != 0) step = 3 * prime3;
-
 				else step = 3 * prime4;
-
 			}
-
 		}
 
 		i = 0;
 
 		while (i < samplepixels)
-
 		{
 
 			b = (p[pix + 0] & 0xff) << netbiasshift;
@@ -317,9 +301,7 @@ NeuQuant = function()
 			if (delta == 0) delta = 1;
 
 			if (i % delta == 0)
-
 			{
-
 				alpha -= alpha / alphadec;
 				radius -= radius / radiusdec;
 				rad = radius >> radiusbiasshift;
@@ -327,11 +309,8 @@ NeuQuant = function()
 				if (rad <= 1) rad = 0;
 
 				for (j = 0; j < rad; j++) radpower[j] = alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
-
 			}
-
 		}
-
 	}
 
 	/*
@@ -341,7 +320,6 @@ NeuQuant = function()
 	 */
 
 	var map = exports.map = function map(b, g, r)
-
 	{
 
 		var i;
@@ -358,22 +336,16 @@ NeuQuant = function()
 		j = i - 1; /* start at netindex[g] and work outwards */
 
 		while ((i < netsize) || (j >= 0))
-
 		{
 
 			if (i < netsize)
-
 			{
-
 				p = network[i];
-
 				dist = p[1] - g; /* inx key */
 
 				if (dist >= bestd) i = netsize; /* stop iter */
 
-				else
-
-				{
+				else {
 
 					i++;
 
@@ -386,9 +358,7 @@ NeuQuant = function()
 					dist += a;
 
 					if (dist < bestd)
-
 					{
-
 						a = p[2] - r;
 
 						if (a < 0) a = -a;
@@ -396,24 +366,17 @@ NeuQuant = function()
 						dist += a;
 
 						if (dist < bestd)
-
 						{
-
 							bestd = dist;
 							best = p[3];
-
 						}
-
 					}
-
 				}
-
 			}
 
 			if (j >= 0) {
 
 				p = network[j];
-
 				dist = g - p[1]; /* inx key - reverse dif */
 
 				if (dist >= bestd) j = -1; /* stop iter */
@@ -427,9 +390,7 @@ NeuQuant = function()
 					dist += a;
 
 					if (dist < bestd)
-
 					{
-
 						a = p[2] - r;
 						if (a < 0) a = -a;
 						dist += a;
@@ -437,26 +398,19 @@ NeuQuant = function()
 							bestd = dist;
 							best = p[3];
 						}
-
 					}
-
 				}
-
 			}
-
 		}
 
 		return (best);
-
 	}
 
 	var process = exports.process = function process() {
-
 		learn();
 		unbiasnet();
 		inxbuild();
 		return colorMap();
-
 	}
 
 	/*
@@ -466,9 +420,7 @@ NeuQuant = function()
 	 */
 
 	var unbiasnet = function unbiasnet()
-
 	{
-
 		var i;
 		var j;
 
@@ -478,7 +430,6 @@ NeuQuant = function()
 			network[i][2] >>= netbiasshift;
 			network[i][3] = i; /* record colour no */
 		}
-
 	}
 
 	/*
@@ -488,16 +439,13 @@ NeuQuant = function()
 	 */
 
 	var alterneigh = function alterneigh(rad, i, b, g, r)
-
 	{
-
 		var j;
 		var k;
 		var lo;
 		var hi;
 		var a;
 		var m;
-
 		var p;
 
 		lo = i - rad;
@@ -512,45 +460,31 @@ NeuQuant = function()
 		m = 1;
 
 		while ((j < hi) || (k > lo))
-
 		{
-
 			a = radpower[m++];
 
 			if (j < hi)
-
 			{
-
 				p = network[j++];
 
 				try {
-
 					p[0] -= (a * (p[0] - b)) / alpharadbias;
 					p[1] -= (a * (p[1] - g)) / alpharadbias;
 					p[2] -= (a * (p[2] - r)) / alpharadbias;
-
 				} catch (e /*Error*/ ) {} // prevents 1.3 miscompilation
-
 			}
 
 			if (k > lo)
-
 			{
-
 				p = network[k--];
 
 				try {
-
 					p[0] -= (a * (p[0] - b)) / alpharadbias;
 					p[1] -= (a * (p[1] - g)) / alpharadbias;
 					p[2] -= (a * (p[2] - r)) / alpharadbias;
-
 				} catch (e /*Error*/ ) {}
-
 			}
-
 		}
-
 	}
 
 	/*
@@ -565,7 +499,6 @@ NeuQuant = function()
 		n[0] -= (alpha * (n[0] - b)) / initalpha;
 		n[1] -= (alpha * (n[1] - g)) / initalpha;
 		n[2] -= (alpha * (n[2] - r)) / initalpha;
-
 	}
 
 	/*
@@ -596,9 +529,7 @@ NeuQuant = function()
 		bestbiaspos = bestpos;
 
 		for (i = 0; i < netsize; i++)
-
 		{
-
 			n = network[i];
 			dist = n[0] - b;
 
@@ -617,29 +548,22 @@ NeuQuant = function()
 			dist += a;
 
 			if (dist < bestd)
-
 			{
-
 				bestd = dist;
 				bestpos = i;
-
 			}
 
 			biasdist = dist - ((bias[i]) >> (intbiasshift - netbiasshift));
 
 			if (biasdist < bestbiasd)
-
 			{
-
 				bestbiasd = biasdist;
 				bestbiaspos = i;
-
 			}
 
 			betafreq = (freq[i] >> betashift);
 			freq[i] -= betafreq;
 			bias[i] += (betafreq << gammashift);
-
 		}
 
 		freq[bestpos] += beta;
