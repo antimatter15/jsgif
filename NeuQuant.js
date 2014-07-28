@@ -31,16 +31,16 @@
 	NeuQuant = function()
 	{
 	    var exports = {};
-		/*private_static*/ var netsize/*int*/ = 256; /* number of colours used */
+		/*private_static*/ var netsize = 256; /* number of colours used */
 
 		/* four primes near 500 - assume no image has a length so large */
 		/* that it is divisible by all four primes */
 
-		/*private_static*/ var prime1/*int*/ = 499;
-		/*private_static*/ var prime2/*int*/ = 491;
-		/*private_static*/ var prime3/*int*/ = 487;
-		/*private_static*/ var prime4/*int*/ = 503;
-		/*private_static*/ var minpicturebytes/*int*/ = (3 * prime4);
+		/*private_static*/ var prime1 = 499;
+		/*private_static*/ var prime2 = 491;
+		/*private_static*/ var prime3 = 487;
+		/*private_static*/ var prime4 = 503;
+		/*private_static*/ var minpicturebytes = (3 * prime4);
 
 		/* minimum size for input image */
 		/*
@@ -55,54 +55,54 @@
 		* Network Definitions -------------------
 		*/
 
-		/*private_static*/ var maxnetpos/*int*/ = (netsize - 1);
-		/*private_static*/ var netbiasshift/*int*/ = 4; /* bias for colour values */
-		/*private_static*/ var ncycles/*int*/ = 100; /* no. of learning cycles */
+		/*private_static*/ var maxnetpos = (netsize - 1);
+		/*private_static*/ var netbiasshift = 4; /* bias for colour values */
+		/*private_static*/ var ncycles = 100; /* no. of learning cycles */
 
 		/* defs for freq and bias */
-		/*private_static*/ var intbiasshift/*int*/ = 16; /* bias for fractions */
-		/*private_static*/ var intbias/*int*/ = (1 << intbiasshift);
-		/*private_static*/ var gammashift/*int*/ = 10; /* gamma = 1024 */
-		/*private_static*/ var gamma/*int*/ = (1 << gammashift);
-		/*private_static*/ var betashift/*int*/ = 10;
-		/*private_static*/ var beta/*int*/ = (intbias >> betashift); /* beta = 1/1024 */
-		/*private_static*/ var betagamma/*int*/ = (intbias << (gammashift - betashift));
+		/*private_static*/ var intbiasshift = 16; /* bias for fractions */
+		/*private_static*/ var intbias = (1 << intbiasshift);
+		/*private_static*/ var gammashift = 10; /* gamma = 1024 */
+		/*private_static*/ var gamma = (1 << gammashift);
+		/*private_static*/ var betashift = 10;
+		/*private_static*/ var beta = (intbias >> betashift); /* beta = 1/1024 */
+		/*private_static*/ var betagamma = (intbias << (gammashift - betashift));
 
 		/* defs for decreasing radius factor */
-		/*private_static*/ var initrad/*int*/ = (netsize >> 3); /*
+		/*private_static*/ var initrad = (netsize >> 3); /*
 	                                                         * for 256 cols, radius
 	                                                         * starts
 	                                                         */
 
-		/*private_static*/ var radiusbiasshift/*int*/ = 6; /* at 32.0 biased by 6 bits */
-		/*private_static*/ var radiusbias/*int*/ = (1 << radiusbiasshift);
-		/*private_static*/ var initradius/*int*/ = (initrad * radiusbias); /*
+		/*private_static*/ var radiusbiasshift = 6; /* at 32.0 biased by 6 bits */
+		/*private_static*/ var radiusbias = (1 << radiusbiasshift);
+		/*private_static*/ var initradius = (initrad * radiusbias); /*
 	                                                                   * and
 	                                                                   * decreases
 	                                                                   * by a
 	                                                                   */
 
-		/*private_static*/ var radiusdec/*int*/ = 30; /* factor of 1/30 each cycle */
+		/*private_static*/ var radiusdec = 30; /* factor of 1/30 each cycle */
 
 		/* defs for decreasing alpha factor */
-		/*private_static*/ var alphabiasshift/*int*/ = 10; /* alpha starts at 1.0 */
-		/*private_static*/ var initalpha/*int*/ = (1 << alphabiasshift);
-		/*private*/ var alphadec/*int*/ /* biased by 10 bits */
+		/*private_static*/ var alphabiasshift = 10; /* alpha starts at 1.0 */
+		/*private_static*/ var initalpha = (1 << alphabiasshift);
+		/*private*/ var alphadec /* biased by 10 bits */
 
 		/* radbias and alpharadbias used for radpower calculation */
-		/*private_static*/ var radbiasshift/*int*/ = 8;
-		/*private_static*/ var radbias/*int*/ = (1 << radbiasshift);
-		/*private_static*/ var alpharadbshift/*int*/ = (alphabiasshift + radbiasshift);
+		/*private_static*/ var radbiasshift = 8;
+		/*private_static*/ var radbias = (1 << radbiasshift);
+		/*private_static*/ var alpharadbshift = (alphabiasshift + radbiasshift);
 
-		/*private_static*/ var alpharadbias/*int*/ = (1 << alpharadbshift);
+		/*private_static*/ var alpharadbias = (1 << alpharadbshift);
 
 		/*
 		* Types and Global Variables --------------------------
 		*/
 
 		/*private*/ var thepicture/*ByteArray*//* the input image itself */
-		/*private*/ var lengthcount/*int*/; /* lengthcount = H*W*3 */
-		/*private*/ var samplefac/*int*/; /* sampling factor 1..30 */
+		/*private*/ var lengthcount; /* lengthcount = H*W*3 */
+		/*private*/ var samplefac; /* sampling factor 1..30 */
 
 		// typedef int pixel[4]; /* BGRc */
 		/*private*/ var network/*Array*/; /* the network itself - [netsize][4] */
@@ -115,10 +115,10 @@
 		/*private*/ var freq/*Array*/ = new Array();
 		/*private*/ var radpower/*Array*/ = new Array();
 
-		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic/*ByteArray*/, len/*int*/, sample/*int*/)
+		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic/*ByteArray*/, len, sample)
 		{
 
-			var i/*int*/;
+			var i;
 			var p/*Array*/;
 
 			thepicture = thepic;
@@ -144,11 +144,11 @@
 
 			var map/*ByteArray*/ = [];
 		    var index/*Array*/ = new Array(netsize);
-		    for (var i/*int*/ = 0; i < netsize; i++)
+		    for (var i = 0; i < netsize; i++)
 		      index[network[i][3]] = i;
-		    var k/*int*/ = 0;
-		    for (var l/*int*/ = 0; l < netsize; l++) {
-		      var j/*int*/ = index[l];
+		    var k = 0;
+		    for (var l = 0; l < netsize; l++) {
+		      var j = index[l];
 		      map[k++] = (network[j][0]);
 		      map[k++] = (network[j][1]);
 		      map[k++] = (network[j][2]);
@@ -166,14 +166,14 @@
 	   var inxbuild = function inxbuild()/*void*/
 	   {
 
-		  var i/*int*/;
-		  var j/*int*/;
-		  var smallpos/*int*/;
-		  var smallval/*int*/;
+		  var i;
+		  var j;
+		  var smallpos;
+		  var smallval;
 		  var p/*Array*/;
 		  var q/*Array*/;
-		  var previouscol/*int*/
-		  var startpos/*int*/
+		  var previouscol
+		  var startpos
 
 		  previouscol = 0;
 		  startpos = 0;
@@ -246,20 +246,20 @@
 
 	   {
 
-		   var i/*int*/;
-		   var j/*int*/;
-		   var b/*int*/;
-		   var g/*int*/
-		   var r/*int*/;
-		   var radius/*int*/;
-		   var rad/*int*/;
-		   var alpha/*int*/;
-		   var step/*int*/;
-		   var delta/*int*/;
-		   var samplepixels/*int*/;
+		   var i;
+		   var j;
+		   var b;
+		   var g
+		   var r;
+		   var radius;
+		   var rad;
+		   var alpha;
+		   var step;
+		   var delta;
+		   var samplepixels;
 		   var p/*ByteArray*/;
-		   var pix/*int*/;
-		   var lim/*int*/;
+		   var pix;
+		   var lim;
 
 		   if (lengthcount < minpicturebytes) samplefac = 1;
 
@@ -347,17 +347,17 @@
 	   * ----------------------------------------------------------------------------
 	   */
 
-	   var map = exports.map = function map(b/*int*/, g/*int*/, r/*int*/)/*int*/
+	   var map = exports.map = function map(b, g, r)
 
 	   {
 
-		   var i/*int*/;
-		   var j/*int*/;
-		   var dist/*int*/
-		   var a/*int*/;
-		   var bestd/*int*/;
+		   var i;
+		   var j;
+		   var dist
+		   var a;
+		   var bestd;
 		   var p/*Array*/;
-		   var best/*int*/;
+		   var best;
 
 		   bestd = 1000; /* biggest possible dist is 256*3 */
 		   best = -1;
@@ -480,8 +480,8 @@
 
 	  {
 
-	    var i/*int*/;
-	    var j/*int*/;
+	    var i;
+	    var j;
 
 	    for (i = 0; i < netsize; i++)
 		{
@@ -499,16 +499,16 @@
 	  * ---------------------------------------------------------------------------------
 	  */
 
-	  var alterneigh = function alterneigh(rad/*int*/, i/*int*/, b/*int*/, g/*int*/, r/*int*/)/*void*/
+	  var alterneigh = function alterneigh(rad, i, b, g, r)/*void*/
 
 	  {
 
-		  var j/*int*/;
-		  var k/*int*/;
-		  var lo/*int*/;
-		  var hi/*int*/;
-		  var a/*int*/;
-		  var m/*int*/;
+		  var j;
+		  var k;
+		  var lo;
+		  var hi;
+		  var a;
+		  var m;
 
 		  var p/*Array*/;
 
@@ -571,7 +571,7 @@
 	  * ----------------------------------------------------
 	  */
 
-	  var altersingle = function altersingle(alpha/*int*/, i/*int*/, b/*int*/, g/*int*/, r/*int*/)/*void*/
+	  var altersingle = function altersingle(alpha, i, b, g, r)/*void*/
 	  {
 
 		  /* alter hit neuron */
@@ -586,7 +586,7 @@
 	  * Search for biased BGR values ----------------------------
 	  */
 
-	  var contest = function contest(b/*int*/, g/*int*/, r/*int*/)/*int*/
+	  var contest = function contest(b, g, r)
 	  {
 
 		  /* finds closest neuron (min dist) and updates freq */
@@ -594,15 +594,15 @@
 		  /* for frequently chosen neurons, freq[i] is high and bias[i] is negative */
 		  /* bias[i] = gamma*((1/netsize)-freq[i]) */
 
-		  var i/*int*/;
-		  var dist/*int*/;
-		  var a/*int*/;
-		  var biasdist/*int*/;
-		  var betafreq/*int*/;
-		  var bestpos/*int*/;
-		  var bestbiaspos/*int*/;
-		  var bestd/*int*/;
-		  var bestbiasd/*int*/;
+		  var i;
+		  var dist;
+		  var a;
+		  var biasdist;
+		  var betafreq;
+		  var bestpos;
+		  var bestbiaspos;
+		  var bestd;
+		  var bestbiasd;
 		  var n/*Array*/;
 
 		  bestd = ~(1 << 31);

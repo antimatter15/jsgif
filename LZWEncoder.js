@@ -9,21 +9,21 @@
 LZWEncoder = function()
 {
     var exports = {};
-	var EOF/*int*/ = -1;
-	var imgW/*int*/;
-	var imgH/*int*/
+	var EOF = -1;
+	var imgW;
+	var imgH
 	var pixAry/*ByteArray*/;
-	var initCodeSize/*int*/;
-	var remaining/*int*/;
-	var curPixel/*int*/;
+	var initCodeSize;
+	var remaining;
+	var curPixel;
 
 	// GIFCOMPR.C - GIF Image compression routines
 	// Lempel-Ziv compression based on 'compress'. GIF modifications by
 	// David Rowley (mgardi@watdcsu.waterloo.edu)
 	// General DEFINEs
 
-	var BITS/*int*/ = 12;
-	var HSIZE/*int*/ = 5003; // 80% occupancy
+	var BITS = 12;
+	var HSIZE = 5003; // 80% occupancy
 
 	// GIF Image compression - modified 'compress'
 	// Based on: compress.c - File compression ala IEEE Computer, June 1984.
@@ -34,14 +34,14 @@ LZWEncoder = function()
 	// James A. Woods (decvax!ihnp4!ames!jaw)
 	// Joe Orost (decvax!vax135!petsd!joe)
 
-	var n_bits/*int*/ // number of bits/code
-	var maxbits/*int*/ = BITS; // user settable max # bits/code
-	var maxcode/*int*/ // maximum code, given n_bits
-	var maxmaxcode/*int*/ = 1 << BITS; // should NEVER generate this code
+	var n_bits // number of bits/code
+	var maxbits = BITS; // user settable max # bits/code
+	var maxcode // maximum code, given n_bits
+	var maxmaxcode = 1 << BITS; // should NEVER generate this code
 	var htab/*Array*/ = new Array;
 	var codetab/*Array*/ = new Array;
-	var hsize/*int*/ = HSIZE; // for dynamic table sizing
-	var free_ent/*int*/ = 0; // first unused entry
+	var hsize = HSIZE; // for dynamic table sizing
+	var free_ent = 0; // first unused entry
 
 	// block compression parameters -- after all codes are used up,
 	// and compression rate changes, start over.
@@ -60,9 +60,9 @@ LZWEncoder = function()
 	// file size for noticeable speed improvement on small files. Please direct
 	// questions about this implementation to ames!jaw.
 
-	var g_init_bits/*int*/;
-	var ClearCode/*int*/;
-	var EOFCode/*int*/;
+	var g_init_bits;
+	var ClearCode;
+	var EOFCode;
 
 	// output
 	// Output the given code.
@@ -78,17 +78,17 @@ LZWEncoder = function()
 	// fit in it exactly). Use the VAX insv instruction to insert each
 	// code in turn. When the buffer fills up empty it and start over.
 
-	var cur_accum/*int*/ = 0;
-	var cur_bits/*int*/ = 0;
+	var cur_accum = 0;
+	var cur_bits = 0;
 	var masks/*Array*/ = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
 
 	// Number of characters so far in this 'packet'
-	var a_count/*int*/;
+	var a_count;
 
 	// Define the storage for the packet accumulator
 	var accum/*ByteArray*/ = [];
 
-	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width/*int*/, height/*int*/, pixels/*ByteArray*/, color_depth/*int*/)
+	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width, height, pixels/*ByteArray*/, color_depth)
 	{
 
 		imgW = width;
@@ -121,23 +121,23 @@ LZWEncoder = function()
 	}
 
 	// reset code table
-	var cl_hash = function cl_hash(hsize/*int*/)/*void*/
+	var cl_hash = function cl_hash(hsize)/*void*/
 	{
 
-		for (var i/*int*/ = 0; i < hsize; ++i) htab[i] = -1;
+		for (var i = 0; i < hsize; ++i) htab[i] = -1;
 
 	}
 
-	var compress = exports.compress = function compress(init_bits/*int*/, outs/*ByteArray*/)/*void*/
+	var compress = exports.compress = function compress(init_bits, outs/*ByteArray*/)/*void*/
 
 	{
-		var fcode/*int*/;
-		var i/*int*/ /* = 0 */;
-		var c/*int*/;
-		var ent/*int*/;
-		var disp/*int*/;
-		var hsize_reg/*int*/;
-		var hshift/*int*/;
+		var fcode;
+		var i /* = 0 */;
+		var c;
+		var ent;
+		var disp;
+		var hsize_reg;
+		var hshift;
 
 		// Set up the globals: g_init_bits - initial number of bits
 		g_init_bits = init_bits;
@@ -233,7 +233,7 @@ LZWEncoder = function()
 
 	}
 
-	var MAXCODE = function MAXCODE(n_bits/*int*/)/*int*/
+	var MAXCODE = function MAXCODE(n_bits)
 	{
 
 		return (1 << n_bits) - 1;
@@ -244,7 +244,7 @@ LZWEncoder = function()
 	// Return the next pixel from the image
 	// ----------------------------------------------------------------------------
 
-	var nextPixel = function nextPixel()/*int*/
+	var nextPixel = function nextPixel()
 	{
 
 		if (remaining == 0) return EOF;
@@ -257,7 +257,7 @@ LZWEncoder = function()
 
 	}
 
-	var output = function output(code/*int*/, outs/*ByteArray*/)/*void*/
+	var output = function output(code, outs/*ByteArray*/)/*void*/
 
 	{
 		cur_accum &= masks[cur_bits];
