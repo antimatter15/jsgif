@@ -158,7 +158,7 @@ LZWEncoder = function()
 
 		hshift = 0;
 		for (fcode = hsize; fcode < 65536; fcode *= 2)
-		  ++hshift;
+			++hshift;
 		hshift = 8 - hshift; // set hash code range bound
 
 		hsize_reg = hsize;
@@ -173,32 +173,28 @@ LZWEncoder = function()
 			fcode = (c << maxbits) + ent;
 			i = (c << hshift) ^ ent; // xor hashing
 
-			if (htab[i] == fcode)
-			{
-			ent = codetab[i];
-			continue;
+			if (htab[i] == fcode) {
+				ent = codetab[i];
+				continue;
 			} else if (htab[i] >= 0) // non-empty slot
 			{
 				disp = hsize_reg - i; // secondary hash (after G. Knott)
 				if (i == 0)
-				disp = 1;
-				do
-				{
+					disp = 1;
+				do {
 
 					if ((i -= disp) < 0) i += hsize_reg;
 
-					if (htab[i] == fcode)
-					{
-					ent = codetab[i];
-					continue outer_loop;
+					if (htab[i] == fcode) {
+						ent = codetab[i];
+						continue outer_loop;
 					}
 				} while (htab[i] >= 0);
 			}
 
 			output(ent, outs);
 			ent = c;
-			if (free_ent < maxmaxcode)
-			{
+			if (free_ent < maxmaxcode) {
 				codetab[i] = free_ent++; // code -> hashtable
 				htab[i] = fcode;
 			} else cl_block(outs);
@@ -281,17 +277,14 @@ LZWEncoder = function()
 		// If the next entry is going to be too big for the code size,
 		// then increase it, if possible.
 
-		if (free_ent > maxcode || clear_flg)
-		{
+		if (free_ent > maxcode || clear_flg) {
 
-			if (clear_flg)
-			{
+			if (clear_flg) {
 
 				maxcode = MAXCODE(n_bits = g_init_bits);
 				clear_flg = false;
 
-			} else
-			{
+			} else {
 
 				++n_bits;
 
@@ -322,5 +315,5 @@ LZWEncoder = function()
 
 	}
 	LZWEncoder.apply(this, arguments);
-   return exports;
+	return exports;
 }
