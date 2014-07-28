@@ -122,7 +122,7 @@ NeuQuant = function() {
 			freq[i] = intbias / netsize; /* 1/netsize */
 			bias[i] = 0;
 		}
-	}
+	};
 
 	var colorMap = function colorMap() {
 
@@ -141,7 +141,7 @@ NeuQuant = function() {
 		}
 
 		return map;
-	}
+	};
 
 	/*
 	 * Insertion sort of network and building of netindex[0..255] (to do after
