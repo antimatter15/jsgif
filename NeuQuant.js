@@ -167,21 +167,20 @@ NeuQuant = function() {
 			p = network[i];
 			smallpos = i;
 			smallval = p[1]; /* index on g */
+
 			/* find smallest in i..netsize-1 */
 			for (j = i + 1; j < netsize; j++) {
+
 				q = network[j];
 				if (q[1] < smallval) { /* index on g */
-
 					smallpos = j;
 					smallval = q[1]; /* index on g */
 				}
 			}
-
 			q = network[smallpos];
+
 			/* swap p (i) and q (smallpos) entries */
-
 			if (i != smallpos) {
-
 				j = q[0];
 				q[0] = p[0];
 				p[0] = j;
@@ -389,6 +388,7 @@ NeuQuant = function() {
 	 */
 
 	var unbiasnet = function unbiasnet() {
+
 		var i;
 		var j;
 
@@ -407,6 +407,7 @@ NeuQuant = function() {
 	 */
 
 	var alterneigh = function alterneigh(rad, i, b, g, r) {
+
 		var j;
 		var k;
 		var lo;
@@ -522,7 +523,6 @@ NeuQuant = function() {
 		freq[bestpos] += beta;
 		bias[bestpos] -= betagamma;
 		return (bestbiaspos);
-
 	};
 
 	NeuQuant.apply(this, arguments);
