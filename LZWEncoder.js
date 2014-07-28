@@ -38,8 +38,8 @@ LZWEncoder = function()
 	var maxbits = BITS; // user settable max # bits/code
 	var maxcode // maximum code, given n_bits
 	var maxmaxcode = 1 << BITS; // should NEVER generate this code
-	var htab/*Array*/ = new Array;
-	var codetab/*Array*/ = new Array;
+	var htab = new Array;
+	var codetab = new Array;
 	var hsize = HSIZE; // for dynamic table sizing
 	var free_ent = 0; // first unused entry
 
@@ -80,7 +80,7 @@ LZWEncoder = function()
 
 	var cur_accum = 0;
 	var cur_bits = 0;
-	var masks/*Array*/ = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
+	var masks = [ 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF ];
 
 	// Number of characters so far in this 'packet'
 	var a_count;

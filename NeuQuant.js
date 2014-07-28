@@ -105,21 +105,21 @@
 		var samplefac; /* sampling factor 1..30 */
 
 		// typedef int pixel[4]; /* BGRc */
-		var network/*Array*/; /* the network itself - [netsize][4] */
-		/*protected*/ var netindex/*Array*/ = new Array();
+		var network; /* the network itself - [netsize][4] */
+		/*protected*/ var netindex = new Array();
 
 		/* for network lookup - really 256 */
-		var bias/*Array*/ = new Array();
+		var bias = new Array();
 
 		/* bias and freq arrays for learning */
-		var freq/*Array*/ = new Array();
-		var radpower/*Array*/ = new Array();
+		var freq = new Array();
+		var radpower = new Array();
 
 		var NeuQuant = exports.NeuQuant = function NeuQuant(thepic, len, sample)
 		{
 
 			var i;
-			var p/*Array*/;
+			var p;
 
 			thepicture = thepic;
 			lengthcount = len;
@@ -143,7 +143,7 @@
 		{
 
 			var map = [];
-		    var index/*Array*/ = new Array(netsize);
+		    var index = new Array(netsize);
 		    for (var i = 0; i < netsize; i++)
 		      index[network[i][3]] = i;
 		    var k = 0;
@@ -170,8 +170,8 @@
 		  var j;
 		  var smallpos;
 		  var smallval;
-		  var p/*Array*/;
-		  var q/*Array*/;
+		  var p;
+		  var q;
 		  var previouscol
 		  var startpos
 
@@ -356,7 +356,7 @@
 		   var dist
 		   var a;
 		   var bestd;
-		   var p/*Array*/;
+		   var p;
 		   var best;
 
 		   bestd = 1000; /* biggest possible dist is 256*3 */
@@ -510,7 +510,7 @@
 		  var a;
 		  var m;
 
-		  var p/*Array*/;
+		  var p;
 
 		  lo = i - rad;
 		  if (lo < -1) lo = -1;
@@ -575,7 +575,7 @@
 	  {
 
 		  /* alter hit neuron */
-		  var n/*Array*/ = network[i];
+		  var n = network[i];
 		  n[0] -= (alpha * (n[0] - b)) / initalpha;
 		  n[1] -= (alpha * (n[1] - g)) / initalpha;
 		  n[2] -= (alpha * (n[2] - r)) / initalpha;
@@ -603,7 +603,7 @@
 		  var bestbiaspos;
 		  var bestd;
 		  var bestbiasd;
-		  var n/*Array*/;
+		  var n;
 
 		  bestd = ~(1 << 31);
 		  bestbiasd = bestd;
