@@ -91,12 +91,10 @@ LZWEncoder = function()
 
 	var LZWEncoder = exports.LZWEncoder = function LZWEncoder (width, height, pixels, color_depth)
 	{
-
 		imgW = width;
 		imgH = height;
 		pixAry = pixels;
 		initCodeSize = Math.max(2, color_depth);
-
 	}
 
 	// Add a character to the end of the current packet, and if it is 254
@@ -105,7 +103,6 @@ LZWEncoder = function()
 	{
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
-
 	}
 
 	// Clear out the hash table
@@ -113,24 +110,19 @@ LZWEncoder = function()
 
 	var cl_block = function cl_block(outs)
 	{
-
 		cl_hash(hsize);
 		free_ent = ClearCode + 2;
 		clear_flg = true;
 		output(ClearCode, outs);
-
 	}
 
 	// reset code table
 	var cl_hash = function cl_hash(hsize)
 	{
-
 		for (var i = 0; i < hsize; ++i) htab[i] = -1;
-
 	}
 
 	var compress = exports.compress = function compress(init_bits, outs)
-
 	{
 		var fcode;
 		var i /* = 0 */;
@@ -169,7 +161,6 @@ LZWEncoder = function()
 		outer_loop: while ((c = nextPixel()) != EOF)
 
 		{
-
 			fcode = (c << maxbits) + ent;
 			i = (c << hshift) ^ ent; // xor hashing
 
@@ -203,7 +194,6 @@ LZWEncoder = function()
 		// Put out the final code.
 		output(ent, outs);
 		output(EOFCode, outs);
-
 	}
 
 	// ----------------------------------------------------------------------------
@@ -214,7 +204,6 @@ LZWEncoder = function()
 		curPixel = 0;
 		compress(initCodeSize + 1, os); // compress and write the pixel data
 		os.writeByte(0); // write block terminator
-
 	}
 
 	// Flush the packet to disk, and reset the accumulator
@@ -227,14 +216,11 @@ LZWEncoder = function()
 			outs.writeBytes(accum, 0, a_count);
 			a_count = 0;
 		}
-
 	}
 
 	var MAXCODE = function MAXCODE(n_bits)
 	{
-
 		return (1 << n_bits) - 1;
-
 	}
 
 	// ----------------------------------------------------------------------------
@@ -243,15 +229,10 @@ LZWEncoder = function()
 
 	var nextPixel = function nextPixel()
 	{
-
 		if (remaining == 0) return EOF;
-
 		--remaining;
-
 		var pix = pixAry[curPixel++];
-
 		return pix & 0xff;
-
 	}
 
 	var output = function output(code, outs)
@@ -267,11 +248,9 @@ LZWEncoder = function()
 		while (cur_bits >= 8)
 
 		{
-
 			char_out((cur_accum & 0xff), outs);
 			cur_accum >>= 8;
 			cur_bits -= 8;
-
 		}
 
 		// If the next entry is going to be too big for the code size,
@@ -287,13 +266,9 @@ LZWEncoder = function()
 			} else {
 
 				++n_bits;
-
 				if (n_bits == maxbits) maxcode = maxmaxcode;
-
 				else maxcode = MAXCODE(n_bits);
-
 			}
-
 		}
 
 		if (code == EOFCode)
@@ -302,18 +277,15 @@ LZWEncoder = function()
 			// At EOF, write the rest of the buffer.
 			while (cur_bits > 0)
 			{
-
 				char_out((cur_accum & 0xff), outs);
 				cur_accum >>= 8;
 				cur_bits -= 8;
 			}
 
-
 			flush_char(outs);
-
 		}
-
 	}
+
 	LZWEncoder.apply(this, arguments);
 	return exports;
 }
