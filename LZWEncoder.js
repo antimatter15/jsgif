@@ -100,7 +100,7 @@ LZWEncoder = function()
 
 	// Add a character to the end of the current packet, and if it is 254
 	// characters, flush the packet to disk.
-	var char_out = function char_out(c/*Number*/, outs)
+	var char_out = function char_out(c, outs)
 	{
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
@@ -251,7 +251,7 @@ LZWEncoder = function()
 
 		--remaining;
 
-		var pix/*Number*/ = pixAry[curPixel++];
+		var pix = pixAry[curPixel++];
 
 		return pix & 0xff;
 
