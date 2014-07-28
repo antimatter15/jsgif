@@ -119,7 +119,7 @@ LZWEncoder = function() {
 
 	var compress = exports.compress = function compress(init_bits, outs) {
 		var fcode;
-		var i /* = 0 */ ;
+		var i; /* = 0 */
 		var c;
 		var ent;
 		var disp;
