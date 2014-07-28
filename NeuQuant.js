@@ -27,8 +27,6 @@
  * @version 0.1 AS3 implementation
  */
 
-//import flash.utils.ByteArray;
-
 NeuQuant = function()
 {
 	var exports = {};
