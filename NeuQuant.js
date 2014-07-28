@@ -81,7 +81,7 @@ NeuQuant = function()
 	/* defs for decreasing alpha factor */
 	var alphabiasshift = 10; /* alpha starts at 1.0 */
 	var initalpha = (1 << alphabiasshift);
-	var alphadec /* biased by 10 bits */
+	var alphadec; /* biased by 10 bits */
 
 	/* radbias and alpharadbias used for radpower calculation */
 	var radbiasshift = 8;
@@ -94,7 +94,7 @@ NeuQuant = function()
 	 * Types and Global Variables --------------------------
 	 */
 
-	var thepicture/* the input image itself */
+	var thepicture; /* the input image itself */
 	var lengthcount; /* lengthcount = H*W*3 */
 	var samplefac; /* sampling factor 1..30 */
 
@@ -163,8 +163,8 @@ NeuQuant = function()
 		var smallval;
 		var p;
 		var q;
-		var previouscol
-		var startpos
+		var previouscol;
+		var startpos;
 
 		previouscol = 0;
 		startpos = 0;
@@ -218,7 +218,7 @@ NeuQuant = function()
 
 		netindex[previouscol] = (startpos + maxnetpos) >> 1;
 		for (j = previouscol + 1; j < 256; j++) netindex[j] = maxnetpos; /* really 256 */
-	}
+	};
 
 	/*
 	 * Main Learning Loop ------------------
@@ -230,7 +230,7 @@ NeuQuant = function()
 		var i;
 		var j;
 		var b;
-		var g
+		var g;
 		var r;
 		var radius;
 		var rad;
@@ -304,7 +304,7 @@ NeuQuant = function()
 				for (j = 0; j < rad; j++) radpower[j] = alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
 			}
 		}
-	}
+	};
 
 	/*
 	 ** Search for BGR values 0..255 (after net is unbiased) and return colour
@@ -317,7 +317,7 @@ NeuQuant = function()
 
 		var i;
 		var j;
-		var dist
+		var dist;
 		var a;
 		var bestd;
 		var p;
@@ -397,14 +397,14 @@ NeuQuant = function()
 		}
 
 		return (best);
-	}
+	};
 
 	var process = exports.process = function process() {
 		learn();
 		unbiasnet();
 		inxbuild();
 		return colorMap();
-	}
+	};
 
 	/*
 	 * Unbias network to give byte values 0..255 and record position i to prepare
@@ -423,7 +423,7 @@ NeuQuant = function()
 			network[i][2] >>= netbiasshift;
 			network[i][3] = i; /* record colour no */
 		}
-	}
+	};
 
 	/*
 	 * Move adjacent neurons by precomputed alpha*(1-((i-j)^2/[r]^2)) in
@@ -478,7 +478,7 @@ NeuQuant = function()
 				} catch (e) {}
 			}
 		}
-	}
+	};
 
 	/*
 	 * Move neuron i towards biased (b,g,r) by factor alpha
@@ -492,7 +492,7 @@ NeuQuant = function()
 		n[0] -= (alpha * (n[0] - b)) / initalpha;
 		n[1] -= (alpha * (n[1] - g)) / initalpha;
 		n[2] -= (alpha * (n[2] - r)) / initalpha;
-	}
+	};
 
 	/*
 	 * Search for biased BGR values ----------------------------
@@ -563,8 +563,8 @@ NeuQuant = function()
 		bias[bestpos] -= betagamma;
 		return (bestbiaspos);
 
-	}
+	};
 
 	NeuQuant.apply(this, arguments);
 	return exports;
-}
+};

@@ -12,7 +12,7 @@ LZWEncoder = function()
 	var exports = {};
 	var EOF = -1;
 	var imgW;
-	var imgH
+	var imgH;
 	var pixAry;
 	var initCodeSize;
 	var remaining;
@@ -35,9 +35,9 @@ LZWEncoder = function()
 	// James A. Woods (decvax!ihnp4!ames!jaw)
 	// Joe Orost (decvax!vax135!petsd!joe)
 
-	var n_bits // number of bits/code
+	var n_bits; // number of bits/code
 	var maxbits = BITS; // user settable max # bits/code
-	var maxcode // maximum code, given n_bits
+	var maxcode; // maximum code, given n_bits
 	var maxmaxcode = 1 << BITS; // should NEVER generate this code
 	var htab = new Array;
 	var codetab = new Array;
@@ -95,7 +95,7 @@ LZWEncoder = function()
 		imgH = height;
 		pixAry = pixels;
 		initCodeSize = Math.max(2, color_depth);
-	}
+	};
 
 	// Add a character to the end of the current packet, and if it is 254
 	// characters, flush the packet to disk.
@@ -103,7 +103,7 @@ LZWEncoder = function()
 	{
 		accum[a_count++] = c;
 		if (a_count >= 254) flush_char(outs);
-	}
+	};
 
 	// Clear out the hash table
 	// table clear for block compress
@@ -114,13 +114,13 @@ LZWEncoder = function()
 		free_ent = ClearCode + 2;
 		clear_flg = true;
 		output(ClearCode, outs);
-	}
+	};
 
 	// reset code table
 	var cl_hash = function cl_hash(hsize)
 	{
 		for (var i = 0; i < hsize; ++i) htab[i] = -1;
-	}
+	};
 
 	var compress = exports.compress = function compress(init_bits, outs)
 	{
@@ -194,7 +194,7 @@ LZWEncoder = function()
 		// Put out the final code.
 		output(ent, outs);
 		output(EOFCode, outs);
-	}
+	};
 
 	// ----------------------------------------------------------------------------
 	var encode = exports.encode = function encode(os)
@@ -204,7 +204,7 @@ LZWEncoder = function()
 		curPixel = 0;
 		compress(initCodeSize + 1, os); // compress and write the pixel data
 		os.writeByte(0); // write block terminator
-	}
+	};
 
 	// Flush the packet to disk, and reset the accumulator
 	var flush_char = function flush_char(outs)
@@ -216,12 +216,12 @@ LZWEncoder = function()
 			outs.writeBytes(accum, 0, a_count);
 			a_count = 0;
 		}
-	}
+	};
 
 	var MAXCODE = function MAXCODE(n_bits)
 	{
 		return (1 << n_bits) - 1;
-	}
+	};
 
 	// ----------------------------------------------------------------------------
 	// Return the next pixel from the image
@@ -233,7 +233,7 @@ LZWEncoder = function()
 		--remaining;
 		var pix = pixAry[curPixel++];
 		return pix & 0xff;
-	}
+	};
 
 	var output = function output(code, outs)
 
@@ -284,8 +284,8 @@ LZWEncoder = function()
 
 			flush_char(outs);
 		}
-	}
+	};
 
 	LZWEncoder.apply(this, arguments);
 	return exports;
-}
+};
