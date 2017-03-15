@@ -143,7 +143,24 @@ GIFEncoder = function() {
 				image = im.getImageData(0, 0, im.canvas.width, im.canvas.height).data;
 				if (!sizeSet) setSize(im.canvas.width, im.canvas.height);
 			} else {
-				image = im;
+				if(im instanceof ImageData) {
+					image = im.data;
+					if(!sizeset || width!=im.width || height!=im.height) {
+						setSize(im.width,im.height);
+					} else {
+						
+					}
+				} else if(im instanceof Uint8ClampedArray) {
+					if(im.length==(width*height*4)) {
+						image=im.data;
+					} else {
+						console.log("Please set the correct size: ImageData length mismatch");
+						ok=false;
+					}
+				} else {
+					console.log("Please provide correct input");
+					ok=false;
+				}
 			}
 			getImagePixels(); // convert to correct format if necessary
 			analyzePixels(); // build color table & map pixels
