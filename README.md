@@ -98,6 +98,11 @@ you pass `true` as the second argument and then magic strikes and it loads your 
 care and I think the program has learned from my constant apathy to also not care). But note that if you do, you must first manually call
 `setSize` which is happily defined just below this one.
 
+`Boolean addFrame(ImageData image, true)` This adds a frame. This time you just need to pass the ImageData object that you obtained
+after executing getImageData on the CanvasRenderingContext2D object. And pass `true` as the second argument and then if the data
+size and the stored size matches, then it automatically loads the data or it sets the size corresponding to the parameters of the
+ImageData object, and loads the pixels data.
+
 `void setSize(width, height)` Sets the canvas size. It's supposed to be private, but I'm exposing it anyway. Gets called automagically
 as the size of the first frame if you don't do that crappy hacky imageData.data hack.
 
