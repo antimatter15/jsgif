@@ -200,7 +200,7 @@ GIFEncoder = function() {
 	*/
 	
 	var download = exports.download = function download(filename) {
-		if(!started || out===null || closeStream==false) {
+		if(out===null || closeStream==false) {
 			console.log("Please call start method and add frames and call finish method before calling download"); 
 		} else {
 			filename= filename !== undefined ? ( filename.endsWith(".gif")? filename: filename+".gif" ): "download.gif";
