@@ -152,7 +152,7 @@ GIFEncoder = function() {
 					}
 				} else if(im instanceof Uint8ClampedArray) {
 					if(im.length==(width*height*4)) {
-						image=im.data;
+						image=im;
 					} else {
 						console.log("Please set the correct size: ImageData length mismatch");
 						ok=false;
