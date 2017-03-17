@@ -188,6 +188,28 @@ GIFEncoder = function() {
 
 		return ok;
 	};
+	
+	/**
+	* @description: Downloads the encoded gif with the given name
+	* No need of any conversion from the stream data (out) to base64
+	* Solves the issue of large file sizes when there are more frames
+	* and does not involve in creation of any temporary data in the process
+	* so no wastage of memory, and speeds up the process of downloading
+	* to just calling this function.
+	* @parameter {String} filename filename used for downloading the gif
+	*/
+	
+	var download = exports.download = function download(filename) {
+		if(!started || out===null || closeStream==false) {
+			console.log("Please call start method and add frames and call finish method before calling download"); 
+		} else {
+			filename= filename !== undefined ? ( filename.endsWith(".gif")? filename: filename+".gif" ): "download.gif";
+			var templink = document.createElement("a");
+			templink.download=filename;
+			templink.href= URL.createObjectURL(new Blob([new Uint8Array(out.bin)], {type : "image/gif" } ));
+			templink.click();
+		}
+	}
 
 	/**
 	 * Adds final trailer to the GIF stream, if you don't call the finish method
@@ -203,6 +225,7 @@ GIFEncoder = function() {
 
 		try {
 			out.writeByte(0x3b); // gif trailer
+			closeStream=true;
 		} catch (e) {
 			ok = false;
 		}
