@@ -145,7 +145,7 @@ GIFEncoder = function() {
 			} else {
 				if(im instanceof ImageData) {
 					image = im.data;
-					if(!sizeset || width!=im.width || height!=im.height) {
+					if(!sizeSet || width!=im.width || height!=im.height) {
 						setSize(im.width,im.height);
 					} else {
 						
