@@ -115,7 +115,7 @@ GIFEncoder = function() {
 	/**
 	 * Sets the comment for the block comment
 	 * @param
-	 * string to be insterted as comment
+	 * string to be inserted as comment
 	 */
 
 	var setComment = exports.setComment = function setComment(c) {
@@ -166,7 +166,7 @@ GIFEncoder = function() {
 			analyzePixels(); // build color table & map pixels
 
 			if (firstFrame) {
-				writeLSD(); // logical screen descriptior
+				writeLSD(); // logical screen descriptor
 				writePalette(); // global color table
 				if (repeat >= 0) {
 					// use NS app extension to indicate reps
@@ -447,7 +447,7 @@ GIFEncoder = function() {
 	};
 
 	/**
-	 * Writes Comment Extention
+	 * Writes Comment Extension
 	 */
 
 	var writeCommentExt = function writeCommentExt() {
