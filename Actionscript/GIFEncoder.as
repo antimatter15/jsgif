@@ -131,7 +131,7 @@ package org.bytearray.gif.encoder
 				
 				if (firstFrame) 
 				{
-					writeLSD(); // logical screen descriptior
+					writeLSD(); // logical screen descriptor
 					writePalette(); // global color table
 					if (repeat >= 0) 
 					{
