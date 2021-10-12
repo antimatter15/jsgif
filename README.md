@@ -138,7 +138,7 @@ indicate no transparent color.
 `ByteArray finish()` Adds final trailer to the GIF stream, if you don't call the finish method the GIF stream will not be valid. 
 
 `String stream()` Yay the only function that returns a non void/boolean. It's the magical stream function which should have been a getter which JS does
-support but I didnt' feel like making it a getter because getters are so weird and inconsistent. Like sure there's the nice pretty `get` thing
+support but I didn't feel like making it a getter because getters are so weird and inconsistent. Like sure there's the nice pretty `get` thing
 but I think IE9/8 doesn't implement it because it's non standard or something and replaced it with a hideously ugly blah blah. So Anyway, it's a function.
 It returns a byteArray with three writeByte functions that you wouldn't care about and a `getData()` function which returns a binary string with the GIF.
 There's also a `.bin` attribute which contains an array with the binary stuff that I don't care about.
