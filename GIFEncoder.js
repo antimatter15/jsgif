@@ -13,27 +13,27 @@ GIFEncoder = function() {
 		chr[i] = String.fromCharCode(i);
 
 	function ByteArray() {
-		this.bin = [];
+		this.bin = new DynamicByteArray();
 	}
 
 	ByteArray.prototype.getData = function() {
-		for (var v = '', l = this.bin.length, i = 0; i < l; i++)
-			v += chr[this.bin[i]];
+		for (var v = '', l = this.bin.getLength(), i = 0; i < l; i++)
+			v += chr[this.bin.get(i)];
 		return v;
 	};
 
 	ByteArray.prototype.writeByte = function(val) {
-		this.bin.push(val);
+		this.bin.writeByte(val);
 	};
 
 	ByteArray.prototype.writeUTFBytes = function(string) {
 		for (var l = string.length, i = 0; i < l; i++)
-			this.writeByte(string.charCodeAt(i));
+			this.bin.writeByte(string.charCodeAt(i));
 	};
 
 	ByteArray.prototype.writeBytes = function(array, offset, length) {
 		for (var l = length || array.length, i = offset || 0; i < l; i++)
-			this.writeByte(array[i]);
+			this.bin.writeByte(array[i]);
 	};
 
 	var exports = {};
@@ -206,7 +206,7 @@ GIFEncoder = function() {
 			filename= filename !== undefined ? ( filename.endsWith(".gif")? filename: filename+".gif" ): "download.gif";
 			var templink = document.createElement("a");
 			templink.download=filename;
-			templink.href= URL.createObjectURL(new Blob([new Uint8Array(out.bin)], {type : "image/gif" } ));
+			templink.href= URL.createObjectURL(new Blob([out.bin.toCompactUint8Array()], {type : "image/gif" } ));
 			templink.click();
 		}
 	}
